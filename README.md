@@ -1,6 +1,6 @@
 # Svelte POS System
 
-A modern, responsive Point of Sale (POS) system built with Svelte, Tailwind CSS, and shadcn-svelte components.
+A modern, responsive Point of Sale (POS) system built with Svelte, Tailwind CSS, and shadcn-svelte components. Ready for further development and customization.
 
 ## Features
 
@@ -24,7 +24,7 @@ A modern, responsive Point of Sale (POS) system built with Svelte, Tailwind CSS,
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/svelte-pos.git
+   git clone https://github.com/vampcheah/sveltekit-pos.git
    cd svelte-pos
    ```
 
@@ -41,26 +41,6 @@ A modern, responsive Point of Sale (POS) system built with Svelte, Tailwind CSS,
    ```
 
 4. Open your browser and navigate to `http://localhost:5173`
-
-## Project Structure
-
-```bash
-svelte-pos/
-├── src/
-│ ├── lib/
-│ │ ├── components/ # Reusable UI components
-│ │ ├── state.svelte.ts # Global state management
-│ │ └── ...
-│ ├── routes/
-│ │ ├── page-pos/ # Main POS interface
-│ │ │ ├── +page.svelte # POS page component
-│ │ │ ├── ProductItem.svelte
-│ │ │ ├── CartItem.svelte
-│ │ │ └── ...
-│ │ └── ...
-│ └── ...
-└── ...
-```
 
 ## Usage
 
