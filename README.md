@@ -84,3 +84,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - [Svelte](https://svelte.dev/) - The frontend framework
 - [Tailwind CSS](https://tailwindcss.com/) - For styling
 - [shadcn-svelte](https://next.shadcn-svelte.com/docs) - For UI components
+
+## Donations
+
+- Donate to support our efforts: 0xbCF24200CeaB882c3b29d060A5b77217a8dd83Dc
