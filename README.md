@@ -1,6 +1,6 @@
 # Svelte POS System
 
-A modern, responsive Point of Sale (POS) system built with Svelte, Tailwind CSS, and shadcn-svelte components. Ready for further development and customization.
+A modern, responsive Point of Sale (POS) system built with Svelte, Tailwind CSS, and shadcn-svelte components. Ready for further development and customization. Desktop friendly at the moment.
 
 ## Features
 
