@@ -2,7 +2,6 @@
 	import { onDestroy } from 'svelte';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { Trash2 } from 'lucide-svelte';
 
 	let { item, deleteFromCart } = $props();
 	let isOpen = $state(false);
