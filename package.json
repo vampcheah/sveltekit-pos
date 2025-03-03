@@ -1,9 +1,7 @@
 {
 	"name": "svelte-pos",
 	"private": true,
-	"version": "0.0.2",
 	"type": "module",
-	"author": "FrancisXiaobu",
 	"scripts": {
 		"dev": "vite dev --host",
 		"build": "vite build",
