@@ -33,23 +33,21 @@
 		</div>
 	</div>
 
-	<div class="flex-1">
-		<!-- Cart items list -->
-		<ScrollArea>
-			{#if cart.length === 0}
-				<div class="flex h-64 flex-col items-center justify-center text-muted-foreground">
-					<ShoppingCart class="mb-2 h-12 w-12" />
-					<p>Your cart is empty</p>
-				</div>
-			{:else}
-				<div class="space-y-4 p-4">
-					{#each cart as item (item.product.id)}
-						<CartItem {item} {addToCart} {removeFromCart} {deleteFromCart} {onEditWeight} />
-					{/each}
-				</div>
-			{/if}
-		</ScrollArea>
-	</div>
+	<!-- Cart items list -->
+	<ScrollArea class="flex-1">
+		{#if cart.length === 0}
+			<div class="flex h-64 flex-col items-center justify-center text-muted-foreground">
+				<ShoppingCart class="mb-2 h-12 w-12" />
+				<p>Your cart is empty</p>
+			</div>
+		{:else}
+			<div class="space-y-4 p-4">
+				{#each cart as item (item.product.id)}
+					<CartItem {item} {addToCart} {removeFromCart} {deleteFromCart} {onEditWeight} />
+				{/each}
+			</div>
+		{/if}
+	</ScrollArea>
 
 	<!-- Checkout area -->
 	<div class="border-t p-4">
