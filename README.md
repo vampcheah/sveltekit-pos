@@ -119,3 +119,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
   - IPad compatibility
   - Auto detect screen height
   - Scrolling product grid
+- 0.0.3
+  - Mobile friendly
+  - responsive design
+  - Added mobile bottom navigation

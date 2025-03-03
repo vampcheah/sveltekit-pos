@@ -8,6 +8,8 @@
 	// Import Shadcn UI components
 	import { Input } from '$lib/components/ui/input';
 	import { Button } from '$lib/components/ui/button';
+	import { Badge } from '$lib/components/ui/badge';
+	import { Separator } from '$lib/components/ui/separator/index.js';
 	// Import page components
 	import ProductCatalog from './ProductCatalog.svelte';
 	import ShoppingCartSideBar from './ShoppingCartSideBar.svelte';
@@ -33,12 +35,17 @@
 	let guestCount = $state(1);
 	let showSavedCarts = $state(false);
 
+	// Mobile view state
+	let showCartOnMobile = $state(false);
+
 	// Weight input state
 	let editingWeightItem: WeightedProduct | null = $state(null);
 	let weightInputValue = $state('');
 
 	// Calculate total
 	const total = $derived(cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0));
+	// Calculate cart item count
+	const cartItemCount = $derived(cart.length);
 
 	// Add product to cart
 	const addToCart = (product: any) => {
@@ -144,6 +151,24 @@
 		}
 	};
 
+	// Toggle saved carts view
+	const toggleSavedCarts = () => {
+		showSavedCarts = !showSavedCarts;
+		// If showing saved carts, hide cart on mobile
+		if (showSavedCarts) {
+			showCartOnMobile = false;
+		}
+	};
+
+	// Toggle mobile cart view
+	const toggleCartOnMobile = () => {
+		showCartOnMobile = !showCartOnMobile;
+		// If showing cart, hide saved carts
+		if (showCartOnMobile) {
+			showSavedCarts = false;
+		}
+	};
+
 	// Handle weight input
 	const handleEditWeight = (product: WeightedProduct, quantity: number) => {
 		editingWeightItem = product;
@@ -201,14 +226,15 @@
 	<div class="flex flex-1 flex-col overflow-hidden">
 		<!-- Top navigation bar -->
 		<header class="flex items-center justify-between border-b px-6 py-3.5">
-			<h1 class="text-2xl font-bold">{project.name}</h1>
-			<div class="flex items-center gap-4">
-				<div class="relative w-64">
+			<h1 class="hidden text-2xl font-bold sm:flex">{project.name}</h1>
+			<h1 class="flex text-2xl font-bold sm:hidden">{project.name_short}</h1>
+			<div class="flex items-center gap-2">
+				<div class="relative w-fit">
 					<Search class="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
 					<Input
 						type="search"
 						placeholder="Search products..."
-						class="pl-8"
+						class="w-48 pl-8 sm:w-full"
 						bind:value={searchQuery}
 					/>
 				</div>
@@ -216,9 +242,10 @@
 				<Button
 					variant={showSavedCarts ? 'default' : 'outline'}
 					onclick={() => (showSavedCarts = !showSavedCarts)}
+					class="hidden sm:flex"
 				>
 					<ShoppingCart class="mr-2 h-4 w-4" />
-					Saved Carts ({savedCarts.length})
+					Saved ({savedCarts.length})
 				</Button>
 
 				<Button variant="outline" size="icon" onclick={() => goto('/')}>
@@ -228,13 +255,16 @@
 		</header>
 
 		<!-- Main content with products and saved carts -->
-		<div class="flex flex-1 overflow-hidden">
+		<div class="flex flex-1 overflow-hidden pb-14 sm:pb-0">
 			<!-- Products catalog -->
-			<ProductCatalog {categories} {searchQuery} {products} {addToCart} />
+			<div class="{showSavedCarts ? 'hidden' : 'flex w-full'} sm:flex sm:flex-1">
+				<ProductCatalog {categories} {searchQuery} {products} {addToCart} />
+			</div>
 
 			<!-- Saved Carts Section (conditionally shown) -->
 			{#if showSavedCarts}
 				<SavedCarts
+					{showSavedCarts}
 					{savedCarts}
 					{cart}
 					{isSaving}
@@ -246,8 +276,9 @@
 		</div>
 	</div>
 
-	<!-- Shopping cart sidebar -->
+	<!-- Shopping cart sidebar - desktop version -->
 	<ShoppingCartSideBar
+		{showCartOnMobile}
 		{cart}
 		{total}
 		{addToCart}
@@ -257,6 +288,40 @@
 		{checkout}
 		onEditWeight={handleEditWeight}
 	/>
+
+	<!-- Mobile bottom navigation -->
+	<div
+		class="fixed bottom-0 flex w-full items-center justify-around border-t bg-background py-2 sm:hidden"
+	>
+		<Button
+			class="basis-1/2"
+			variant={showSavedCarts ? 'default' : 'ghost'}
+			size="sm"
+			onclick={toggleSavedCarts}
+		>
+			<ShoppingCart class="h-5 w-5" />
+			<span class="ml-1 text-xs">Saved ({savedCarts.length})</span>
+		</Button>
+
+		<Separator orientation="vertical" class="h-5" />
+
+		<Button
+			variant={showCartOnMobile ? 'default' : 'ghost'}
+			size="sm"
+			onclick={toggleCartOnMobile}
+			class="relative basis-1/2"
+		>
+			<ShoppingCart class="h-5 w-5" />
+			<span class="ml-1 text-xs">Cart</span>
+			{#if cartItemCount > 0}
+				<Badge
+					class="flex h-5 w-5 items-center justify-center bg-green-600 px-1.5 py-0.5 text-xs text-white"
+				>
+					{cartItemCount}
+				</Badge>
+			{/if}
+		</Button>
+	</div>
 
 	<!-- Weight Input Dialog -->
 	{#if editingWeightItem}

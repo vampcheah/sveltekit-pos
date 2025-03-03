@@ -17,23 +17,24 @@
 	);
 </script>
 
-<div class="flex flex-1 flex-col overflow-hidden p-6">
+<div class="flex flex-1 flex-col overflow-hidden p-2 sm:p-6">
 	<!-- Category tabs -->
-	<Tabs value={activeCategory} class="mb-6">
-		<TabsList
-			class="bg-background grid rounded-lg border p-1"
-			style="grid-template-columns: repeat({categories.length}, minmax(0, 1fr));"
-		>
-			{#each categories as category}
-				<TabsTrigger
-					value={category}
-					onclick={() => (activeCategory = category)}
-					class="transition-all duration-200 data-[state=active]:bg-blue-700 data-[state=active]:text-white data-[state=active]:shadow-sm"
-				>
-					{category}
-				</TabsTrigger>
-			{/each}
-		</TabsList>
+	<Tabs value={activeCategory} class="mb-0 sm:mb-6">
+		<div class="hide-scrollbar overflow-x-auto pb-2">
+			<TabsList
+				class="inline-flex w-auto min-w-full justify-between rounded-lg border bg-background p-1"
+			>
+				{#each categories as category}
+					<TabsTrigger
+						value={category}
+						onclick={() => (activeCategory = category)}
+						class="min-w-[100px] whitespace-nowrap transition-all duration-200 data-[state=active]:bg-blue-700 data-[state=active]:text-white data-[state=active]:shadow-sm sm:min-w-[150px]"
+					>
+						{category}
+					</TabsTrigger>
+				{/each}
+			</TabsList>
+		</div>
 	</Tabs>
 
 	<!-- Product grid with ScrollArea -->

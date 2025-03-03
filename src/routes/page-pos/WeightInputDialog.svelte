@@ -64,7 +64,7 @@
 </script>
 
 <Dialog open={!!editingWeightItem} onOpenChange={(open) => !open && onCancel()}>
-	<DialogContent class="sm:max-w-md">
+	<DialogContent class="w-full sm:max-w-md">
 		<DialogHeader>
 			<DialogTitle class="text-xl">Enter Weight</DialogTitle>
 			<DialogDescription>
@@ -79,13 +79,14 @@
 				<div class="relative flex-1">
 					<Input
 						type="text"
+						inputmode="decimal"
 						bind:value={weightInputValue}
 						oninput={handleInput}
 						class="h-14 pr-12 text-center text-xl font-semibold"
 						placeholder="0.00"
 						autocomplete="off"
 					/>
-					<div class="text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2">
+					<div class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
 						{#if editingWeightItem?.unit}
 							{editingWeightItem.unit}
 						{/if}
@@ -117,7 +118,7 @@
 			</div>
 		</div>
 
-		<DialogFooter class="flex justify-between sm:justify-between">
+		<DialogFooter class="flex flex-col flex-col-reverse gap-2 sm:flex-row sm:justify-between">
 			<Button variant="outline" onclick={onCancel}>Cancel</Button>
 			<Button
 				class="bg-blue-700 text-white hover:bg-blue-800"

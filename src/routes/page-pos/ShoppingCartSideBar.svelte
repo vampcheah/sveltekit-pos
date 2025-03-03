@@ -5,6 +5,7 @@
 	import CartItem from './CartItem.svelte';
 
 	let {
+		showCartOnMobile,
 		cart,
 		total,
 		addToCart,
@@ -16,7 +17,11 @@
 	} = $props();
 </script>
 
-<div class="flex w-96 flex-col border-l bg-card">
+<div
+	class="mb-14 w-full flex-col border-l bg-card sm:mb-0 sm:w-96 {showCartOnMobile
+		? 'flex'
+		: 'hidden'} sm:flex"
+>
 	<div class="border-b p-4">
 		<div class="flex h-9 items-center justify-between">
 			<h2 class="flex items-center gap-2 text-xl font-bold">

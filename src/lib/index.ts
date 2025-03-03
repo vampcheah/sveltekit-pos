@@ -1,6 +1,7 @@
 export const project = {
 	name: 'Sveltekit POS',
-	version: '0.0.2',
+	name_short: 'SvPOS',
+	version: '0.0.3',
 	author: 'FrancisXiaobu',
 	description: 'A simple POS system built with SvelteKit, TailwindCSS and Shadcn-Svelte'
 };
