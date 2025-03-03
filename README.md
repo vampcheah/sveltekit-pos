@@ -67,7 +67,7 @@ The application uses Tailwind CSS for styling. Customize the look and feel by mo
 
 ## Future Plans
 
-### Mobile Responsive Design
+### Mobile Responsive Design [Done]
 
 We plan to implement a fully mobile-responsive layout to ensure a seamless experience across all devices, with a focus on improving usability and navigation on smaller screens.
 
@@ -113,13 +113,13 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Version History
 
-- 0.0.1
-  - Initial setup and basic functionality
-- 0.0.2
-  - IPad compatibility
-  - Auto detect screen height
-  - Scrolling product grid
 - 0.0.3
   - Mobile friendly
   - responsive design
   - Added mobile bottom navigation
+- 0.0.2
+  - IPad compatibility
+  - Auto detect screen height
+  - Scrolling product grid
+- 0.0.1
+  - Initial setup and basic functionality
