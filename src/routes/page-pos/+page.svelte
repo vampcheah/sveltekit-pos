@@ -1,12 +1,14 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Input } from '$lib/components/ui/input';
-	import { Button } from '$lib/components/ui/button';
+	import { goto } from '$app/navigation';
 	import { Search, ShoppingCart, User } from 'lucide-svelte';
 	import type { WeightedProduct, Product } from './types';
-	import { goto } from '$app/navigation';
+	// Import project data
 	import { project } from '$lib/index';
-	// Import our new components
+	// Import Shadcn UI components
+	import { Input } from '$lib/components/ui/input';
+	import { Button } from '$lib/components/ui/button';
+	// Import page components
 	import ProductCatalog from './ProductCatalog.svelte';
 	import ShoppingCartSideBar from './ShoppingCartSideBar.svelte';
 	import SavedCarts from './SavedCarts.svelte';
