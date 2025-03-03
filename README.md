@@ -110,3 +110,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Donations
 
 - Donate to support our efforts: 0xbCF24200CeaB882c3b29d060A5b77217a8dd83Dc
+
+## Version History
+
+- 0.0.1
+  - Initial setup and basic functionality
+- 0.0.2
+  - IPad compatibility
+  - Auto detect screen height
+  - Scrolling product grid
