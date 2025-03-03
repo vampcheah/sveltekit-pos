@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Tabs, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
+	import { ScrollArea } from '$lib/components/ui/scroll-area';
 	import ProductItem from './ProductItem.svelte';
 	import type { Product } from './types';
 
@@ -16,7 +17,7 @@
 	);
 </script>
 
-<div class="flex-1 overflow-hidden p-6">
+<div class="flex flex-1 flex-col overflow-hidden p-6">
 	<!-- Category tabs -->
 	<Tabs value={activeCategory} class="mb-6">
 		<TabsList
@@ -35,10 +36,12 @@
 		</TabsList>
 	</Tabs>
 
-	<!-- Product grid -->
-	<div class="grid grid-cols-2 gap-4 overflow-y-auto md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
-		{#each filteredProducts as product (product.id)}
-			<ProductItem {product} {addToCart} />
-		{/each}
-	</div>
+	<!-- Product grid with ScrollArea -->
+	<ScrollArea class="flex-1">
+		<div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+			{#each filteredProducts as product (product.id)}
+				<ProductItem {product} {addToCart} />
+			{/each}
+		</div>
+	</ScrollArea>
 </div>

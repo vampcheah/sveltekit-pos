@@ -7,9 +7,10 @@
 	import { project } from '$lib/index';
 	// Import our new components
 	import ProductCatalog from './ProductCatalog.svelte';
-	import ShoppingCartSideBar from './ShoppingCart.svelte';
+	import ShoppingCartSideBar from './ShoppingCartSideBar.svelte';
 	import SavedCarts from './SavedCarts.svelte';
 	import WeightInputDialog from './WeightInputDialog.svelte';
+	import { onMount } from 'svelte';
 
 	// Mock product data
 	const categories = ['All', 'Food', 'Drinks', 'Desserts', 'Main Dishes'];
@@ -308,9 +309,19 @@
 		editingWeightItem = null;
 		weightInputValue = '';
 	};
+
+	const setVh = () => {
+		const vh = window.innerHeight * 0.01;
+		document.documentElement.style.setProperty('--vh', `${vh}px`);
+	};
+
+	onMount(() => {
+		setVh();
+		window.addEventListener('resize', setVh);
+	});
 </script>
 
-<div class="bg-background flex h-screen overflow-hidden">
+<div class="full-height flex overflow-hidden bg-background">
 	<!-- Main content area -->
 	<div class="flex flex-1 flex-col overflow-hidden">
 		<!-- Top navigation bar -->
@@ -318,7 +329,7 @@
 			<h1 class="text-2xl font-bold">{project.name}</h1>
 			<div class="flex items-center gap-4">
 				<div class="relative w-64">
-					<Search class="text-muted-foreground absolute left-2 top-2.5 h-4 w-4" />
+					<Search class="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
 					<Input
 						type="search"
 						placeholder="Search products..."
@@ -382,3 +393,10 @@
 		/>
 	{/if}
 </div>
+
+<style>
+	/* 使用动态设置的 --vh 值来控制高度 */
+	.full-height {
+		height: calc(var(--vh, 1vh) * 100);
+	}
+</style>

@@ -16,7 +16,7 @@
 	} = $props();
 </script>
 
-<div class="bg-card flex w-96 flex-col border-l">
+<div class="flex w-96 flex-col border-l bg-card">
 	<div class="border-b p-4">
 		<div class="flex h-9 items-center justify-between">
 			<h2 class="flex items-center gap-2 text-xl font-bold">
@@ -33,25 +33,27 @@
 		</div>
 	</div>
 
-	<!-- Cart items list -->
-	<ScrollArea class="flex-1">
-		{#if cart.length === 0}
-			<div class="text-muted-foreground flex h-64 flex-col items-center justify-center">
-				<ShoppingCart class="mb-2 h-12 w-12" />
-				<p>Your cart is empty</p>
-			</div>
-		{:else}
-			<div class="space-y-4 p-4">
-				{#each cart as item (item.product.id)}
-					<CartItem {item} {addToCart} {removeFromCart} {deleteFromCart} {onEditWeight} />
-				{/each}
-			</div>
-		{/if}
-	</ScrollArea>
+	<div class="flex-1">
+		<!-- Cart items list -->
+		<ScrollArea>
+			{#if cart.length === 0}
+				<div class="flex h-64 flex-col items-center justify-center text-muted-foreground">
+					<ShoppingCart class="mb-2 h-12 w-12" />
+					<p>Your cart is empty</p>
+				</div>
+			{:else}
+				<div class="space-y-4 p-4">
+					{#each cart as item (item.product.id)}
+						<CartItem {item} {addToCart} {removeFromCart} {deleteFromCart} {onEditWeight} />
+					{/each}
+				</div>
+			{/if}
+		</ScrollArea>
+	</div>
 
 	<!-- Checkout area -->
 	<div class="border-t p-4">
-		<div class="space-y-4">
+		<div class="space-y-2">
 			<div class="flex justify-between text-lg font-bold">
 				<span>Items:</span>
 				<span>

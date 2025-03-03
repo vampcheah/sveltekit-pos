@@ -21,8 +21,8 @@
 			/>
 			<div class="flex flex-col items-start justify-center">
 				<h4 class="text-base font-medium">{item.product.name}</h4>
-				<p class="text-muted-foreground text-sm">
-					${item.product.price.toFixed(2)} ×
+				<p class="text-sm text-muted-foreground">
+					{item.product.price.toFixed(2)} ×
 					{#if item.product.isWeighed}
 						{item.quantity.toFixed(2)} {item.product.unit}
 					{:else}
