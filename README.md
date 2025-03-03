@@ -65,6 +65,28 @@ Products can be added through the admin interface or by modifying the product da
 
 The application uses Tailwind CSS for styling. Customize the look and feel by modifying the `tailwind.config.js` file.
 
+## Future Plans
+
+### Mobile Responsive Design
+
+We plan to implement a fully mobile-responsive layout to ensure a seamless experience across all devices, with a focus on improving usability and navigation on smaller screens.
+
+### Integration of IndexedDB
+
+IndexedDB will be introduced for efficient local storage of data, enabling offline capabilities and improved performance for returning users.
+
+### Payment Process Improvements
+
+A more intuitive checkout experience will be implemented, including a modal popup that guides the user through the entire payment process, enhancing the overall flow and ease of payment.
+
+### Cryptocurrency Payment Module
+
+We aim to add support for cryptocurrency payments, giving users more flexibility by allowing them to make transactions using various digital currencies.
+
+### Basic User Dashboard
+
+A simple yet functional user dashboard will be added, providing users with essential account management features, including order history, profile settings, and more.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
