@@ -225,7 +225,7 @@
 	<!-- Main content area -->
 	<div class="flex flex-1 flex-col overflow-hidden">
 		<!-- Top navigation bar -->
-		<header class="flex items-center justify-between border-b px-6 py-3.5">
+		<header class="flex items-center justify-between border-b px-2 py-2 sm:py-3.5">
 			<h1 class="hidden text-2xl font-bold sm:flex">{project.name}</h1>
 			<h1 class="flex text-2xl font-bold sm:hidden">{project.name_short}</h1>
 			<div class="flex items-center gap-2">
