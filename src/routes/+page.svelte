@@ -12,4 +12,11 @@
 	>
 		Go to POS
 	</Button>
+	<Button
+		class="bg-blue-700 text-white hover:bg-blue-800"
+		variant="outline"
+		onclick={() => goto('/page-db')}
+	>
+		Go to DB
+	</Button>
 </div>

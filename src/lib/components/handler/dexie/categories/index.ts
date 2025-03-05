@@ -1,6 +1,5 @@
-import { schema as schema } from './schema';
-import { type as type } from './types';
+import { schema } from './schema';
 import { actions } from './actions';
 
 export const tableName = 'categories';
-export { schema, type, actions };
+export { schema, actions };

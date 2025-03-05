@@ -1,4 +1,4 @@
-// 分类表结构定义
-export const categorySchema = "++id, name, description, createdAt, updatedAt";
+// categories table schema definition
+export const schema = '++id, name, description, createdAt, updatedAt';
 
-export default categorySchema;
+export default schema;

@@ -4,7 +4,6 @@ import type { Category } from './categories/types';
 import categorySchema from './categories/schema';
 import type { Product } from './products/types';
 import productSchema from './products/schema';
-
 // Create our database class
 class DPOSDatabase extends DexieBase {
 	categories: Dexie.Table<Category, number>;

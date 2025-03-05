@@ -1,24 +1,24 @@
 import { db } from '../db';
 import { defaultProduct, type Product } from './types';
 
-// 产品操作
-export const productActions = {
-	// 获取所有产品
+// actions for products table
+export const actions = {
+	// get all products
 	getAll: async () => {
 		return await db.products.toArray();
 	},
 
-	// 根据ID获取产品
+	// get product by id
 	getById: async (id: number) => {
 		return await db.products.get(id);
 	},
 
-	// 根据分类ID获取产品
+	// get products by category id
 	getByCategoryId: async (categoryId: number) => {
 		return await db.products.where('categoryId').equals(categoryId).toArray();
 	},
 
-	// 添加产品
+	// add product
 	add: async (product: Product) => {
 		const newProduct = {
 			...defaultProduct,
@@ -29,7 +29,7 @@ export const productActions = {
 		return await db.products.add(newProduct);
 	},
 
-	// 更新产品
+	// update product
 	update: async (id: number, changes: Partial<Product>) => {
 		const updatedProduct = {
 			...changes,
@@ -38,12 +38,12 @@ export const productActions = {
 		return await db.products.update(id, updatedProduct);
 	},
 
-	// 删除产品
+	// delete product
 	delete: async (id: number) => {
 		return await db.products.delete(id);
 	},
 
-	// 搜索产品
+	// search product
 	search: async (query: string) => {
 		return await db.products
 			.filter(
@@ -56,10 +56,10 @@ export const productActions = {
 			.toArray();
 	},
 
-	// 更新库存
+	// update stock
 	updateStock: async (id: number, quantity: number) => {
 		const product = await db.products.get(id);
-		if (!product) throw new Error('产品不存在');
+		if (!product) throw new Error('Product not found');
 
 		return await db.products.update(id, {
 			stock: product.stock + quantity,
@@ -67,12 +67,12 @@ export const productActions = {
 		});
 	},
 
-	// 获取低库存产品
+	// get low stock products
 	getLowStock: async (threshold = 10) => {
 		return await db.products.where('stock').below(threshold).toArray();
 	},
 
-	// 获取带有分类信息的产品
+	// get products with category information
 	getAllWithCategories: async () => {
 		const products = await db.products.toArray();
 		const categories = await db.categories.toArray();
@@ -84,4 +84,4 @@ export const productActions = {
 	}
 };
 
-export default productActions;
+export default actions;
