@@ -22,8 +22,9 @@
 		TableHeader,
 		TableRow
 	} from '$lib/components/ui/table';
-	import { Plus, Edit, Trash2, Database } from 'lucide-svelte';
+	import { Plus, Edit, Trash2, Database, Home } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
+	import { goto } from '$app/navigation';
 
 	// State variables
 	let tables = $state<string[]>([]);
@@ -149,11 +150,19 @@
 	const removeColumnField = (index: number) => {
 		newTableColumns = newTableColumns.filter((_, i) => i !== index);
 	};
+
+	const navigateToHome = () => {
+		goto('/');
+	};
 </script>
 
 <div class="container mx-auto py-8">
 	<div class="mb-6 flex items-center justify-between">
 		<h1 class="text-2xl font-bold">Database Manager</h1>
+		<Button variant="outline" onclick={navigateToHome}>
+			<Home class="mr-2 h-4 w-4" />
+			Back to Home
+		</Button>
 	</div>
 
 	<div class="mb-6 w-full max-w-xs">
