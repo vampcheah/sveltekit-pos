@@ -113,9 +113,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Version History
 
+- 0.0.4
+  - Centralized cart state
+  - Basic data management
 - 0.0.3
   - Mobile friendly
-  - responsive design
+  - Responsive design
   - Added mobile bottom navigation
 - 0.0.2
   - IPad compatibility
