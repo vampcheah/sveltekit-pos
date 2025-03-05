@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { Card, CardContent } from '$lib/components/ui/card';
 	import { Badge } from '$lib/components/ui/badge';
+	import { cartStore } from './CartStore.svelte';
 
-	let { product, addToCart } = $props();
+	let { product } = $props();
 	let isFlashing = $state(false);
 
 	const handleFlash = () => {
@@ -13,7 +14,7 @@
 	};
 
 	const onAddCart = () => {
-		addToCart(product);
+		cartStore.addToCart(product);
 		handleFlash();
 	};
 </script>

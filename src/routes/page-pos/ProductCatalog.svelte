@@ -3,14 +3,19 @@
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
 	import ProductItem from './ProductItem.svelte';
 	import type { Product } from './types';
+	import { cartStore } from './CartStore.svelte';
+	// Import sample data
+	import { products } from '$lib/sample_data/products';
+	import { categories } from '$lib/sample_data/categories';
 
-	let { categories, searchQuery, products, addToCart } = $props();
 	let activeCategory = $state('All');
 
 	// Filter products
 	const filteredProducts = $derived(
-		products.filter((product: Product) => {
-			const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+		products.filter((product: any) => {
+			const matchesSearch = product.name
+				.toLowerCase()
+				.includes(cartStore.searchQuery.toLowerCase());
 			const matchesCategory = activeCategory === 'All' || product.category === activeCategory;
 			return matchesSearch && matchesCategory;
 		})
@@ -41,7 +46,7 @@
 	<ScrollArea class="flex-1">
 		<div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
 			{#each filteredProducts as product (product.id)}
-				<ProductItem {product} {addToCart} />
+				<ProductItem {product} />
 			{/each}
 		</div>
 	</ScrollArea>

@@ -4,8 +4,9 @@
 	import { Plus, Minus } from 'lucide-svelte';
 	import DeleteFromCart from './DeleteFromCart.svelte';
 	import type { WeightedProduct } from './types';
+	import { cartStore } from './CartStore.svelte';
 
-	let { item, removeFromCart, addToCart, deleteFromCart, onEditWeight } = $props();
+	let { item } = $props();
 
 	const subtotal = $derived(item.product.price * item.quantity);
 </script>
@@ -30,7 +31,7 @@
 					{/if}
 				</p>
 				<p>
-					<DeleteFromCart {item} {deleteFromCart} />
+					<DeleteFromCart {item} />
 				</p>
 			</div>
 		</div>
@@ -48,7 +49,8 @@
 						variant="outline"
 						size="sm"
 						class="h-8"
-						onclick={() => onEditWeight(item.product as WeightedProduct, item.quantity)}
+						onclick={() =>
+							cartStore.handleEditWeight(item.product as WeightedProduct, item.quantity)}
 					>
 						Edit Weight
 					</Button>
@@ -58,7 +60,7 @@
 							variant="ghost"
 							size="icon"
 							class="h-8 w-8 rounded-none"
-							onclick={() => removeFromCart(item.product.id)}
+							onclick={() => cartStore.removeFromCart(item.product.id)}
 						>
 							<Minus class="h-4 w-4" />
 						</Button>
@@ -67,7 +69,7 @@
 							variant="ghost"
 							size="icon"
 							class="h-8 w-8 rounded-none"
-							onclick={() => addToCart(item.product)}
+							onclick={() => cartStore.addToCart(item.product)}
 						>
 							<Plus class="h-4 w-4" />
 						</Button>

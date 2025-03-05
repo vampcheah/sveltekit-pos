@@ -2,13 +2,14 @@
 	import { onDestroy } from 'svelte';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import { cartStore } from './CartStore.svelte';
 
-	let { item, deleteFromCart } = $props();
+	let { item } = $props();
 	let isOpen = $state(false);
 	let confirm_text = $state('');
 
 	const delete_now = async () => {
-		deleteFromCart(item.product.id);
+		cartStore.deleteFromCart(item.product.id);
 	};
 
 	onDestroy(() => {

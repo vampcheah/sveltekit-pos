@@ -9,14 +9,8 @@
 	} from '$lib/components/ui/dialog';
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
-	import { X, Trash2 } from 'lucide-svelte';
-
-	let {
-		editingWeightItem = $bindable(),
-		weightInputValue = $bindable(),
-		onConfirm,
-		onCancel
-	} = $props();
+	import { Trash2 } from 'lucide-svelte';
+	import { cartStore } from './CartStore.svelte';
 
 	let isNewOpen = $state(true);
 
@@ -31,45 +25,48 @@
 		// Ensure only one decimal point
 		const parts = filtered.split('.');
 		if (parts.length > 2) {
-			weightInputValue = parts[0] + '.' + parts.slice(1).join('');
+			cartStore.weightInputValue = parts[0] + '.' + parts.slice(1).join('');
 		} else {
-			weightInputValue = filtered;
+			cartStore.weightInputValue = filtered;
 		}
 	}
 
 	// Function to clear the input
 	function clearInput() {
-		weightInputValue = '';
+		cartStore.weightInputValue = '';
 	}
 
 	// Function to handle keypad input
 	function appendDigit(digit: string) {
 		if (isNewOpen) {
-			weightInputValue = digit;
+			cartStore.weightInputValue = digit;
 			isNewOpen = false;
 		} else {
-			weightInputValue += digit;
+			cartStore.weightInputValue += digit;
 		}
 	}
 
 	function appendDecimal() {
-		if (!weightInputValue.includes('.')) {
-			weightInputValue += '.';
+		if (!cartStore.weightInputValue.includes('.')) {
+			cartStore.weightInputValue += '.';
 		}
 	}
 
 	function backspace() {
-		weightInputValue = weightInputValue.slice(0, -1);
+		cartStore.weightInputValue = cartStore.weightInputValue.slice(0, -1);
 	}
 </script>
 
-<Dialog open={!!editingWeightItem} onOpenChange={(open) => !open && onCancel()}>
+<Dialog
+	open={!!cartStore.editingWeightItem}
+	onOpenChange={(open) => !open && cartStore.cancelWeightInput()}
+>
 	<DialogContent class="w-full sm:max-w-md">
 		<DialogHeader>
 			<DialogTitle class="text-xl">Enter Weight</DialogTitle>
 			<DialogDescription>
-				{#if editingWeightItem}
-					Please enter the weight for {editingWeightItem.name}
+				{#if cartStore.editingWeightItem}
+					Please enter the weight for {cartStore.editingWeightItem.name}
 				{/if}
 			</DialogDescription>
 		</DialogHeader>
@@ -80,15 +77,15 @@
 					<Input
 						type="text"
 						inputmode="decimal"
-						bind:value={weightInputValue}
+						value={cartStore.weightInputValue}
 						oninput={handleInput}
 						class="h-14 pr-12 text-center text-xl font-semibold"
 						placeholder="0.00"
 						autocomplete="off"
 					/>
 					<div class="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-						{#if editingWeightItem?.unit}
-							{editingWeightItem.unit}
+						{#if cartStore.editingWeightItem?.unit}
+							{cartStore.editingWeightItem.unit}
 						{/if}
 					</div>
 				</div>
@@ -119,11 +116,11 @@
 		</div>
 
 		<DialogFooter class="flex flex-col flex-col-reverse gap-2 sm:flex-row sm:justify-between">
-			<Button variant="outline" onclick={onCancel}>Cancel</Button>
+			<Button variant="outline" onclick={cartStore.cancelWeightInput}>Cancel</Button>
 			<Button
 				class="bg-blue-700 text-white hover:bg-blue-800"
-				onclick={onConfirm}
-				disabled={!weightInputValue || parseFloat(weightInputValue) <= 0}
+				onclick={cartStore.confirmWeightInput}
+				disabled={!cartStore.weightInputValue || parseFloat(cartStore.weightInputValue) <= 0}
 			>
 				Confirm
 			</Button>

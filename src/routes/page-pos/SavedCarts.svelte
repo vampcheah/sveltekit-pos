@@ -3,9 +3,7 @@
 	import { Card, CardContent } from '$lib/components/ui/card';
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
 	import { ShoppingCart, Trash2, Save, Loader2 } from 'lucide-svelte';
-
-	let { showSavedCarts, savedCarts, cart, isSaving, onLoadCart, onDeleteCart, onSaveCart } =
-		$props();
+	import { cartStore } from './CartStore.svelte';
 
 	// Format date for display
 	const formatDate = (date: Date) => {
@@ -17,7 +15,7 @@
 </script>
 
 <div
-	class="flex-col border-l border-r bg-card sm:flex sm:w-72 {showSavedCarts
+	class="flex-col border-l border-r bg-card sm:flex sm:w-72 {cartStore.showSavedCarts
 		? 'flex w-full'
 		: 'hidden'}"
 >
@@ -29,16 +27,16 @@
 	</div>
 
 	<ScrollArea class="flex-1">
-		{#if savedCarts.length === 0}
+		{#if cartStore.savedCarts.length === 0}
 			<div class="flex h-64 flex-col items-center justify-center p-4 text-muted-foreground">
 				<ShoppingCart class="mb-2 h-12 w-12" />
 				<p>No saved carts</p>
 			</div>
 		{:else}
 			<div class="space-y-3 p-3">
-				{#each savedCarts as savedCart (savedCart.id)}
+				{#each cartStore.savedCarts as savedCart (savedCart.id)}
 					<Card class="cursor-pointer transition-colors hover:bg-accent/50">
-						<CardContent class="p-3" onclick={() => onLoadCart(savedCart)}>
+						<CardContent class="p-3" onclick={() => cartStore.loadSavedCart(savedCart)}>
 							<div class="flex items-center justify-between">
 								<div>
 									<p class="font-medium">{savedCart.name}</p>
@@ -79,7 +77,7 @@
 									size="sm"
 									onclick={(e) => {
 										e.stopPropagation();
-										onDeleteCart(savedCart.id);
+										cartStore.deleteSavedCart(savedCart.id);
 									}}
 								>
 									<Trash2 class="h-4 w-4" />
@@ -94,12 +92,12 @@
 
 	<div class="flex gap-2 border-t p-3">
 		<Button
-			onclick={onSaveCart}
-			disabled={isSaving || cart.length === 0}
+			onclick={cartStore.saveCurrentCart}
+			disabled={cartStore.isSaving || cartStore.cart.length === 0}
 			size="sm"
 			class="w-full bg-green-600 text-primary-foreground hover:bg-green-800"
 		>
-			{#if isSaving}
+			{#if cartStore.isSaving}
 				<Loader2 class="mr-2 h-4 w-4 animate-spin" />
 				Saving
 			{:else}

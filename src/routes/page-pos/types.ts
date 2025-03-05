@@ -1,15 +1,20 @@
 export interface Product {
 	id: number;
 	name: string;
-	image: string;
+	image?: string;
 	price: number;
 	unit?: string;
 	category: string;
-	isWeighed: boolean;
+	isWeighed: false;
+}
+
+export interface WeightedProduct extends Omit<Product, 'isWeighed'> {
+	isWeighed: true;
+	unit: string;
 }
 
 export interface CartItem {
-	product: Product | WeightedProduct | boolean;
+	product: WeightedProduct | Product;
 	quantity: number;
 }
 
@@ -18,8 +23,9 @@ export interface Cart {
 	total: number;
 }
 
-export interface WeightedProduct extends Product {
-	weight: number;
-	isWeighed: true;
-	unit: string;
+export interface SavedCart {
+	id: number;
+	name: string;
+	items: CartItem[];
+	timestamp: Date;
 }
