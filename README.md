@@ -1,6 +1,6 @@
 # Svelte POS System
 
-A modern, responsive Point of Sale (POS) system built with Svelte, Tailwind CSS, and shadcn-svelte components. Ready for further development and customization. Desktop friendly at the moment.
+A modern, responsive Point of Sale (POS) system built with Svelte, Tailwind CSS, and shadcn-svelte components. Ready for further development and customization. Desktop/Mobile friendly at the moment.
 
 ## Features
 
@@ -86,6 +86,10 @@ We aim to add support for cryptocurrency payments, giving users more flexibility
 ### Basic User Dashboard
 
 A simple yet functional user dashboard will be added, providing users with essential account management features, including order history, profile settings, and more.
+
+### Multi-language Support
+
+Add support for multiple languages to make the app more accessible to a wider audience.
 
 ## Contributing
 
