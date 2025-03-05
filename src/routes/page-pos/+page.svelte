@@ -315,7 +315,7 @@
 			<span class="ml-1 text-xs">Cart</span>
 			{#if cartItemCount > 0}
 				<Badge
-					class="flex h-5 w-5 items-center justify-center bg-green-600 px-1.5 py-0.5 text-xs text-white"
+					class="flex h-5 w-5 items-center justify-center bg-green-600 px-1.5 py-0.5 text-xs text-white hover:bg-green-600 active:bg-green-600"
 				>
 					{cartItemCount}
 				</Badge>
