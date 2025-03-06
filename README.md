@@ -117,6 +117,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Version History
 
+- 0.0.5
+  - Replace alert with toast
+  - Payment dialog after checkout
 - 0.0.4
   - Centralized cart state
   - Basic data management
