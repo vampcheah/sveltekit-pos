@@ -94,8 +94,8 @@
 		<Button
 			onclick={cartStore.saveCurrentCart}
 			disabled={cartStore.isSaving || cartStore.cart.length === 0}
-			size="sm"
-			class="w-full bg-green-600 text-primary-foreground hover:bg-green-800"
+			size="lg"
+			class="w-full bg-green-600 text-white hover:bg-green-800"
 		>
 			{#if cartStore.isSaving}
 				<Loader2 class="mr-2 h-4 w-4 animate-spin" />
