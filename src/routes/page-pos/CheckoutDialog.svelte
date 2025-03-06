@@ -10,7 +10,7 @@
 	import { RadioGroup, RadioGroupItem } from '$lib/components/ui/radio-group';
 	import { Label } from '$lib/components/ui/label';
 	import { toast } from 'svelte-sonner';
-	import { CreditCard, Banknote, Printer, Check, Wallet2 } from 'lucide-svelte';
+	import { CreditCard, Banknote, Printer, Check } from 'lucide-svelte';
 	import { cartStore } from './CartStore.svelte';
 
 	// Props
@@ -39,7 +39,7 @@
 		{
 			id: 'bsc_usdt',
 			name: 'Crypto',
-			icon: Wallet2,
+			icon: Banknote,
 			description: 'Pay with BSC-USDT'
 		}
 	];
@@ -133,8 +133,8 @@
 				</div>
 				<h3 class="mb-2 text-2xl font-bold text-green-500">Payment Successful!</h3>
 				<p class="mb-8 text-muted-foreground">
-					Payment of <span class="font-semibold text-white">${paidAmount.toFixed(2)}</span> has been
-					processed successfully.
+					Payment of <span class="font-semibold text-white">{paidAmount.toFixed(2)}</span> has been processed
+					successfully.
 				</p>
 
 				<div class="flex w-full gap-3">
