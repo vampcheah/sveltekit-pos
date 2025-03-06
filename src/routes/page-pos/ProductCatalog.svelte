@@ -2,7 +2,6 @@
 	import { Tabs, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
 	import ProductItem from './ProductItem.svelte';
-	import type { Product } from './types';
 	import { cartStore } from './CartStore.svelte';
 	// Import sample data
 	import { products } from '$lib/sample_data/products';

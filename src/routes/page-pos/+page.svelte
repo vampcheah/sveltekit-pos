@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Search, ShoppingCart, User } from 'lucide-svelte';
-	import type { WeightedProduct, Product } from './types';
 	// Import project data
 	import { project } from '$lib/index';
 	// Import Shadcn UI components
