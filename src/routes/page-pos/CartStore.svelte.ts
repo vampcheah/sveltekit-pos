@@ -82,6 +82,7 @@ export class CartStore {
 	checkout = () => {
 		toast.success(`Checkout successful! Total amount: ${this.total.toFixed(2)}`);
 		this.clearCart();
+		this.showCartOnMobile = false;
 	};
 
 	printReceipt = () => {
