@@ -1,5 +1,6 @@
 import { goto } from '$app/navigation';
 import type { WeightedProduct, Product, SavedCart } from './types';
+import { toast } from 'svelte-sonner';
 
 export class CartStore {
 	// Cart state variables
@@ -79,8 +80,12 @@ export class CartStore {
 	};
 
 	checkout = () => {
-		alert(`Checkout successful! Total amount: ${this.total.toFixed(2)}`);
+		toast.success(`Checkout successful! Total amount: ${this.total.toFixed(2)}`);
 		this.clearCart();
+	};
+
+	printReceipt = () => {
+		toast.success('Receipt printed successfully!');
 	};
 
 	// Saved carts methods
@@ -158,7 +163,7 @@ export class CartStore {
 
 		const weight = parseFloat(this.weightInputValue);
 		if (isNaN(weight) || weight <= 0) {
-			alert('Please enter a valid weight value');
+			toast.error('Please enter a valid weight value');
 			return;
 		}
 

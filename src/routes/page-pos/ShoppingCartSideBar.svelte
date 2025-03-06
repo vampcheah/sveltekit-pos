@@ -4,6 +4,20 @@
 	import { ShoppingCart, Trash2, CreditCard } from 'lucide-svelte';
 	import CartItem from './CartItem.svelte';
 	import { cartStore } from './CartStore.svelte';
+	import CheckoutDialog from './CheckoutDialog.svelte';
+
+	// State for checkout dialog
+	let showCheckoutDialog = $state(false);
+
+	// Function to open checkout dialog
+	const openCheckoutDialog = () => {
+		showCheckoutDialog = true;
+	};
+
+	// Function to close checkout dialog
+	const closeCheckoutDialog = () => {
+		showCheckoutDialog = false;
+	};
 </script>
 
 <div
@@ -82,7 +96,7 @@
 				class="w-full bg-blue-700 text-white hover:bg-blue-800"
 				size="lg"
 				disabled={cartStore.cart.length === 0}
-				onclick={cartStore.checkout}
+				onclick={openCheckoutDialog}
 			>
 				<CreditCard class="mr-2 h-5 w-5" />
 				Checkout
@@ -90,3 +104,8 @@
 		</div>
 	</div>
 </div>
+
+<!-- Checkout Dialog -->
+{#if showCheckoutDialog}
+	<CheckoutDialog onClose={closeCheckoutDialog} />
+{/if}
