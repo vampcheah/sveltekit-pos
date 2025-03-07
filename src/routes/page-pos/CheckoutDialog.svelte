@@ -12,6 +12,7 @@
 	import { toast } from 'svelte-sonner';
 	import { CreditCard, Banknote, Printer, Check } from 'lucide-svelte';
 	import { cartStore } from './CartStore.svelte';
+	import * as m from '$lib/paraglide/messages.js';
 
 	// Props
 	let { onClose } = $props();
@@ -26,21 +27,21 @@
 	const paymentMethods = [
 		{
 			id: 'cash',
-			name: 'Cash',
+			name: m.pos_payment_cash(),
 			icon: Banknote,
-			description: 'Pay with physical cash'
+			description: m.pos_payment_cash_description()
 		},
 		{
 			id: 'credit_card',
-			name: 'Credit Card',
+			name: m.pos_payment_credit_card(),
 			icon: CreditCard,
-			description: 'Debit or credit card payment'
+			description: m.pos_payment_credit_card_description()
 		},
 		{
 			id: 'bsc_usdt',
-			name: 'Crypto',
+			name: m.pos_payment_bsc_usdt(),
 			icon: Banknote,
-			description: 'Pay with BSC-USDT'
+			description: m.pos_payment_bsc_usdt_description()
 		}
 	];
 
@@ -54,7 +55,7 @@
 	};
 
 	const printReceipt = () => {
-		toast.success('Receipt printed successfully!');
+		toast.success(m.pos_print_receipt());
 	};
 
 	const completeCheckout = () => {
@@ -65,18 +66,18 @@
 <Dialog open={true} onOpenChange={onClose}>
 	<DialogContent class="sm:max-w-xl">
 		<DialogHeader>
-			<DialogTitle class="text-2xl font-bold">Complete Purchase</DialogTitle>
+			<DialogTitle class="text-2xl font-bold">{m.pos_complete_purchase()}</DialogTitle>
 		</DialogHeader>
 
 		{#if !isCompleted}
 			<div class="py-6">
 				<div class="mb-8 rounded-lg bg-blue-50/10 p-4">
-					<div class="mb-1 text-sm text-muted-foreground">Total Amount</div>
+					<div class="mb-1 text-sm text-muted-foreground">{m.pos_total_amount()}</div>
 					<div class="text-3xl font-bold text-green-500">{cartStore.total.toFixed(2)}</div>
 				</div>
 
 				<div class="space-y-4">
-					<h3 class="text-lg font-medium">Select Payment Method</h3>
+					<h3 class="text-lg font-medium">{m.pos_select_payment_method()}</h3>
 
 					<RadioGroup value={selectedPaymentMethod} class="grid gap-4 md:grid-cols-3">
 						{#each paymentMethods as method}
@@ -110,7 +111,7 @@
 			</div>
 
 			<DialogFooter class="gap-2 sm:gap-0">
-				<Button variant="outline" onclick={onClose}>Cancel</Button>
+				<Button variant="outline" onclick={onClose}>{m.pos_button_cancel()}</Button>
 				<Button
 					onclick={processPayment}
 					disabled={isProcessing}
@@ -120,9 +121,9 @@
 						<div
 							class="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
 						></div>
-						Processing...
+						{m.pos_button_processing()}
 					{:else}
-						Confirm Payment
+						{m.pos_button_confirm_payment()}
 					{/if}
 				</Button>
 			</DialogFooter>
@@ -131,10 +132,9 @@
 				<div class="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-500/20">
 					<Check class="h-8 w-8 text-green-500" />
 				</div>
-				<h3 class="mb-2 text-2xl font-bold text-green-500">Payment Successful!</h3>
+				<h3 class="mb-2 text-2xl font-bold text-green-500">{m.pos_payment_successful()}</h3>
 				<p class="mb-8 text-muted-foreground">
-					Payment of <span class="font-semibold text-white">{paidAmount.toFixed(2)}</span> has been processed
-					successfully.
+					{@html m.pos_payment_successful_description({ amount: paidAmount.toFixed(2) })}
 				</p>
 
 				<div class="flex w-full gap-3">
@@ -144,13 +144,13 @@
 						onclick={printReceipt}
 					>
 						<Printer class="mr-2 h-4 w-4" />
-						Print Receipt
+						{m.pos_button_print_receipt()}
 					</Button>
 					<Button
 						class="flex-1 bg-blue-600 text-white transition-colors hover:bg-blue-700"
 						onclick={completeCheckout}
 					>
-						Complete
+						{m.pos_button_complete_purchase()}
 					</Button>
 				</div>
 			</div>

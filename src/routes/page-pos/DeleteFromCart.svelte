@@ -3,6 +3,7 @@
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { cartStore } from './CartStore.svelte';
+	import * as m from '$lib/paraglide/messages.js';
 
 	let { item } = $props();
 	let isOpen = $state(false);
@@ -19,15 +20,18 @@
 
 <Dialog.Root bind:open={isOpen}>
 	<Dialog.Trigger>
-		<Button variant="outline" class="h-5 border-red-600 px-2 text-xs">Remove</Button>
+		<Button variant="outline" class="h-5 border-red-600 px-2 text-xs"
+			>{m.pos_button_remove_from_cart()}</Button
+		>
 	</Dialog.Trigger>
 	<Dialog.Content>
 		<Dialog.Header>
-			<Dialog.Title>Are you sure absolutely sure?</Dialog.Title>
+			<Dialog.Title>{m.pos_delete_from_cart_title()}</Dialog.Title>
 			<Dialog.Description>
 				<div class="grid gap-4 py-4">
 					<div class="flex items-center gap-4">
-						Deleting Item: <span class="border-b-2 border-red-500 text-lg font-bold text-red-500"
+						{m.pos_deleting_item()}:
+						<span class="border-b-2 border-red-500 text-lg font-bold text-red-500"
 							>{item.product.name}</span
 						>
 					</div>
@@ -37,7 +41,9 @@
 		<Dialog.Footer>
 			<div class="flex w-full flex-row justify-end gap-2">
 				<div class="flex flex-row gap-2">
-					<Button variant="destructive" onclick={delete_now}>Delete</Button>
+					<Button variant="destructive" onclick={delete_now}
+						>{m.pos_button_delete_from_cart()}</Button
+					>
 				</div>
 			</div>
 		</Dialog.Footer>

@@ -5,6 +5,7 @@
 	import DeleteFromCart from './DeleteFromCart.svelte';
 	import type { WeightedProduct } from './types';
 	import { cartStore } from './CartStore.svelte';
+	import * as m from '$lib/paraglide/messages.js';
 
 	let { item } = $props();
 
@@ -52,7 +53,7 @@
 						onclick={() =>
 							cartStore.handleEditWeight(item.product as WeightedProduct, item.quantity)}
 					>
-						Edit Weight
+						{m.pos_edit_weight()}
 					</Button>
 				{:else}
 					<div class="flex items-center overflow-hidden rounded-md border">

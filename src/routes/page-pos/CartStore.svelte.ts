@@ -1,6 +1,7 @@
 import { goto } from '$app/navigation';
 import type { WeightedProduct, Product, SavedCart } from './types';
 import { toast } from 'svelte-sonner';
+import * as m from '$lib/paraglide/messages.js';
 
 export class CartStore {
 	// Cart state variables
@@ -80,13 +81,13 @@ export class CartStore {
 	};
 
 	checkout = () => {
-		toast.success(`Checkout successful! Total amount: ${this.total.toFixed(2)}`);
+		toast.success(m.pos_checkout_success({ total: this.total.toFixed(2) }));
 		this.clearCart();
 		this.showCartOnMobile = false;
 	};
 
 	printReceipt = () => {
-		toast.success('Receipt printed successfully!');
+		toast.success(m.pos_print_receipt());
 	};
 
 	// Saved carts methods
@@ -96,7 +97,7 @@ export class CartStore {
 		this.isSaving = true;
 
 		// Use "Guest X" if no name provided
-		const cartName = this.newCartName.trim() || `Guest ${this.guestCount}`;
+		const cartName = this.newCartName.trim() || m.pos_guest({ queue_no: this.guestCount });
 		if (!this.newCartName.trim()) {
 			this.guestCount++;
 		}
@@ -164,7 +165,7 @@ export class CartStore {
 
 		const weight = parseFloat(this.weightInputValue);
 		if (isNaN(weight) || weight <= 0) {
-			toast.error('Please enter a valid weight value');
+			toast.error(m.pos_invalid_weight());
 			return;
 		}
 

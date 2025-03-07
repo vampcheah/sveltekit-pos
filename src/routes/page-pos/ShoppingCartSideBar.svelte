@@ -5,6 +5,7 @@
 	import CartItem from './CartItem.svelte';
 	import { cartStore } from './CartStore.svelte';
 	import CheckoutDialog from './CheckoutDialog.svelte';
+	import * as m from '$lib/paraglide/messages.js';
 
 	// State for checkout dialog
 	let showCheckoutDialog = $state(false);
@@ -29,13 +30,13 @@
 		<div class="flex h-9 items-center justify-between">
 			<h2 class="flex items-center gap-2 text-xl font-bold">
 				<ShoppingCart class="h-5 w-5" />
-				Cart
+				{m.pos_cart()}
 			</h2>
 
 			{#if cartStore.cart.length > 0}
 				<Button variant="ghost" size="sm" onclick={cartStore.clearCart}>
 					<Trash2 class="mr-1 h-4 w-4" />
-					Clear
+					{m.pos_button_clear_cart()}
 				</Button>
 			{/if}
 		</div>
@@ -46,7 +47,7 @@
 		{#if cartStore.cart.length === 0}
 			<div class="flex h-64 flex-col items-center justify-center text-muted-foreground">
 				<ShoppingCart class="mb-2 h-12 w-12" />
-				<p>Your cart is empty</p>
+				<p>{m.pos_cart_empty()}</p>
 			</div>
 		{:else}
 			<div class="space-y-4 p-4">
@@ -61,7 +62,7 @@
 	<div class="border-t px-3 py-4 sm:px-4">
 		<div class="space-y-2">
 			<div class="flex justify-between text-lg font-bold">
-				<span>Items:</span>
+				<span>{m.pos_items()}:</span>
 				<span>
 					{cartStore.cart.reduce(
 						(sum: number, item: { product: { isWeighed: boolean }; quantity: number }) => {
@@ -72,7 +73,8 @@
 							return sum;
 						},
 						0
-					)} items,
+					)}
+					{m.pos_items()},
 					{cartStore.cart
 						.reduce((sum: number, item: { product: { isWeighed: boolean }; quantity: number }) => {
 							// Only count weighed items for the weight
@@ -81,15 +83,16 @@
 							}
 							return sum;
 						}, 0)
-						.toFixed(2)} kg
+						.toFixed(2)}
+					{m.pos_kg()}
 				</span>
 			</div>
 			<div class="flex justify-between text-lg">
-				<span>Subtotal:</span>
+				<span>{m.pos_subtotal()}:</span>
 				<span>{cartStore.total.toFixed(2)}</span>
 			</div>
 			<div class="flex justify-between text-lg font-bold">
-				<span>Total:</span>
+				<span>{m.pos_total()}:</span>
 				<span>{cartStore.total.toFixed(2)}</span>
 			</div>
 			<Button
@@ -99,7 +102,7 @@
 				onclick={openCheckoutDialog}
 			>
 				<CreditCard class="mr-2 h-5 w-5" />
-				Checkout
+				{m.pos_button_checkout()}
 			</Button>
 		</div>
 	</div>
