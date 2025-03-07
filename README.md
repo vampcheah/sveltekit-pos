@@ -1,6 +1,12 @@
 # Svelte POS System
 
-A modern, responsive Point of Sale (POS) system built with Svelte, Tailwind CSS, and shadcn-svelte components. Ready for further development and customization. Desktop/Mobile friendly at the moment.
+```bash
+This system is not recommended for full commercial use. Further customization and development are encouraged to enhance the overall user experience.
+```
+
+This experimental open-source project explores real-world applications of SvelteKit, providing a flexible design framework that is easy to extend and adapt for additional development.
+
+Svelte POS is a modern, responsive Point of Sale solution built with Svelte, Tailwind CSS, and shadcn-svelte components. Designed for modern browsers, it is fully functional offline and can be installed as a Progressive Web App (PWA), final goal. The system utilizes IndexedDB and LocalStorage for local data management, without relying on external databases.
 
 ## Features
 
@@ -40,7 +46,7 @@ A modern, responsive Point of Sale (POS) system built with Svelte, Tailwind CSS,
    npm run dev
    ```
 
-4. Open your browser and navigate to `http://localhost:5173`
+4. Open browser and navigate to `http://localhost:5173`
 
 ## Usage
 
@@ -69,7 +75,7 @@ The application uses Tailwind CSS for styling. Customize the look and feel by mo
 
 ### Mobile Responsive Design [Done]
 
-We plan to implement a fully mobile-responsive layout to ensure a seamless experience across all devices, with a focus on improving usability and navigation on smaller screens.
+Implement a fully mobile-responsive layout to ensure a seamless experience across all devices, with a focus on improving usability and navigation on smaller screens.
 
 ### Integration of IndexedDB
 
@@ -81,7 +87,7 @@ A more intuitive checkout experience will be implemented, including a modal popu
 
 ### Cryptocurrency Payment Module
 
-We aim to add support for cryptocurrency payments, giving users more flexibility by allowing them to make transactions using various digital currencies.
+Add support for cryptocurrency payments, giving users more flexibility by allowing them to make transactions using various digital currencies.
 
 ### Basic User Dashboard
 
@@ -96,8 +102,8 @@ Add support for multiple languages to make the app more accessible to a wider au
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add some amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
@@ -113,7 +119,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Donations
 
-- Donate to support our efforts: 0xbCF24200CeaB882c3b29d060A5b77217a8dd83Dc
+- Donate to support: 0xbCF24200CeaB882c3b29d060A5b77217a8dd83Dc
 
 ## Version History
 
