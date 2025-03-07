@@ -93,7 +93,7 @@ Add support for cryptocurrency payments, giving users more flexibility by allowi
 
 A simple yet functional user dashboard will be added, providing users with essential account management features, including order history, profile settings, and more.
 
-### Multi-language Support
+### Multi-language Support [Done]
 
 Add support for multiple languages to make the app more accessible to a wider audience.
 
