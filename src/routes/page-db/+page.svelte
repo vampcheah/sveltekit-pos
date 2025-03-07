@@ -189,7 +189,7 @@
 						Add Record
 					</Button>
 				</DialogTrigger>
-				<DialogContent>
+				<DialogContent class="max-w-sm rounded-lg sm:max-w-xl">
 					<DialogHeader>
 						<DialogTitle>Add New Record</DialogTitle>
 						<DialogDescription>Fill in the details for the new record.</DialogDescription>
@@ -216,7 +216,7 @@
 			</Dialog>
 
 			<Dialog bind:open={isEditDialogOpen}>
-				<DialogContent>
+				<DialogContent class="max-w-sm rounded-lg sm:max-w-xl">
 					<DialogHeader>
 						<DialogTitle>Edit Record</DialogTitle>
 						<DialogDescription>Update the record details.</DialogDescription>

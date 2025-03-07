@@ -64,7 +64,7 @@
 </script>
 
 <Dialog open={true} onOpenChange={onClose}>
-	<DialogContent class="sm:max-w-xl">
+	<DialogContent class="max-w-sm rounded-lg sm:max-w-xl">
 		<DialogHeader>
 			<DialogTitle class="text-2xl font-bold">{m.pos_complete_purchase()}</DialogTitle>
 		</DialogHeader>

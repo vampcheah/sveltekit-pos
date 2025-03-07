@@ -62,7 +62,7 @@
 	open={!!cartStore.editingWeightItem}
 	onOpenChange={(open) => !open && cartStore.cancelWeightInput()}
 >
-	<DialogContent class="w-full sm:max-w-md">
+	<DialogContent class="max-w-sm rounded-lg sm:max-w-md">
 		<DialogHeader>
 			<DialogTitle class="text-xl">{m.pos_edit_weight()}</DialogTitle>
 			<DialogDescription>
