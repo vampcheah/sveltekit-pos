@@ -13,8 +13,10 @@ export class LocalStore<T> {
 			if (item) this.value = this.deserialize(item);
 		}
 
-		$effect(() => {
-			localStorage.setItem(this.key, this.serialize(this.value));
+		$effect.root(() => {
+			$effect(() => {
+				localStorage.setItem(this.key, this.serialize(this.value));
+			});
 		});
 	}
 

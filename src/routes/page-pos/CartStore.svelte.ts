@@ -10,7 +10,7 @@ export class CartStore {
 		id: number;
 		name: string;
 		items: { product: WeightedProduct | Product; quantity: number }[];
-		timestamp: Date;
+		timestamp: string;
 	}[] = $state([]);
 
 	// UI state variables
@@ -109,7 +109,7 @@ export class CartStore {
 				id: Date.now(),
 				name: cartName,
 				items: [...this.cart],
-				timestamp: new Date()
+				timestamp: new Date().toISOString()
 			}
 		];
 

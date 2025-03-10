@@ -7,11 +7,11 @@
 	import * as m from '$lib/paraglide/messages.js';
 
 	// Format date for display
-	const formatDate = (date: Date) => {
+	const formatDate = (date: string) => {
 		return new Intl.DateTimeFormat('default', {
 			hour: '2-digit',
 			minute: '2-digit'
-		}).format(date);
+		}).format(new Date(date));
 	};
 </script>
 
@@ -72,7 +72,7 @@
 										{m.pos_kg()}
 									</p>
 									<p class="text-xs text-muted-foreground">
-										{formatDate(savedCart.timestamp)}
+										{savedCart.timestamp}
 									</p>
 								</div>
 								<Button

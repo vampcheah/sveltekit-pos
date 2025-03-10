@@ -27,5 +27,5 @@ export interface SavedCart {
 	id: number;
 	name: string;
 	items: CartItem[];
-	timestamp: Date;
+	timestamp: string;
 }
