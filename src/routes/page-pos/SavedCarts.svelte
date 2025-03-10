@@ -96,7 +96,7 @@
 		{/if}
 	</ScrollArea>
 
-	<div class="flex gap-2 border-t p-3">
+	<div class="flex gap-2 border-t px-3 py-4">
 		<Button
 			onclick={cartStore.saveCurrentCart}
 			disabled={cartStore.isSaving || cartStore.cart.length === 0}
