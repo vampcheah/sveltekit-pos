@@ -6,9 +6,11 @@ import { localStore, type LocalStorageType } from '$lib/localStore.svelte';
 
 export class CartStore {
 	// Cart state variables
-	cart: { product: WeightedProduct | Product; quantity: number }[] = $state([]);
-	storedSavedCarts: LocalStorageType<SavedCart[]> = localStore('pos.savedCarts', [] as SavedCart[]);
-	savedCarts: SavedCart[] = $state(this.storedSavedCarts.current);
+	localCart: LocalStorageType<{ product: WeightedProduct | Product; quantity: number }[]> =
+		localStore('pos.cart', [] as { product: WeightedProduct | Product; quantity: number }[]);
+	cart: { product: WeightedProduct | Product; quantity: number }[] = $state(this.localCart.current);
+	localSavedCarts: LocalStorageType<SavedCart[]> = localStore('pos.savedCarts', [] as SavedCart[]);
+	savedCarts: SavedCart[] = $state(this.localSavedCarts.current);
 
 	// UI state variables
 	searchQuery = $state('');
@@ -55,6 +57,7 @@ export class CartStore {
 		} else {
 			this.cart = [...this.cart, { product, quantity: 1 }];
 		}
+		this.localCart.current = this.cart;
 	};
 
 	removeFromCart = (productId: number) => {
@@ -67,14 +70,17 @@ export class CartStore {
 		} else {
 			this.cart = this.cart.filter((item) => item.product.id !== productId);
 		}
+		this.localCart.current = this.cart;
 	};
 
 	deleteFromCart = (productId: number) => {
 		this.cart = this.cart.filter((item) => item.product.id !== productId);
+		this.localCart.current = this.cart;
 	};
 
 	clearCart = () => {
 		this.cart = [];
+		this.localCart.current = [];
 	};
 
 	checkout = () => {
@@ -110,7 +116,7 @@ export class CartStore {
 			}
 		];
 
-		this.storedSavedCarts.current = this.savedCarts;
+		this.localSavedCarts.current = this.savedCarts;
 
 		this.newCartName = '';
 		this.isSaving = false;
@@ -129,7 +135,7 @@ export class CartStore {
 
 	deleteSavedCart = (id: number) => {
 		this.savedCarts = this.savedCarts.filter((cart) => cart.id !== id);
-		this.storedSavedCarts.current = this.savedCarts;
+		this.localSavedCarts.current = this.savedCarts;
 
 		if (this.savedCarts.length === 0) {
 			this.guestCount = 1;
