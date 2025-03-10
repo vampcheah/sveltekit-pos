@@ -1,12 +1,10 @@
 # Svelte POS System
 
-```bash
-This system is not recommended for full commercial use. Further customization and development are encouraged to enhance the overall user experience.
-```
-
-This experimental open-source project explores real-world applications of SvelteKit, providing a flexible design framework that is easy to extend and adapt for additional development.
+> This system is not recommended for full commercial use. Further customization and development are encouraged to enhance the overall user experience.
 
 Svelte POS is a modern, responsive Point of Sale solution built with Svelte, Tailwind CSS, and shadcn-svelte components. Designed for modern browsers, it is fully functional offline and can be installed as a Progressive Web App (PWA), final goal. The system utilizes IndexedDB and LocalStorage for local data management, without relying on external databases.
+
+Explores real-world applications of SvelteKit, providing a flexible design framework that is easy to extend and adapt for additional development.
 
 ## Features
 
@@ -22,6 +20,26 @@ Svelte POS is a modern, responsive Point of Sale solution built with Svelte, Tai
 - **Frontend**: [Svelte V5](https://svelte.dev/) with the new runes system
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **UI Components**: [shadcn-svelte](https://www.shadcn-svelte.com/)
+
+## Limitations
+
+1. Unsupported browsers:
+   Although most modern browsers support IndexedDB, older browsers (such as IE 10 and below) or certain mobile browsers may not support it.
+
+2. Limited storage capacity:
+   IndexedDB storage space is not unlimited and varies depending on the browser and device. Users might encounter issues where data cannot be written due to space limitations.
+
+3. Automatic cache clearing:
+   Browsers might automatically clear IndexedDB data if the storage reaches a certain size, especially if the data has not been used in a while, potentially causing data loss.
+
+4. User clearing browser data:
+   Users can manually clear their browser data or select "Clear Site Data," which would remove all IndexedDB data.
+
+5. Performance degradation with large data sets:
+   Query performance in IndexedDB may degrade when handling large amounts of data, especially if indexes are not properly designed.
+
+6. Slower read/write operations:
+   The asynchronous read/write operations of IndexedDB can be slower compared to in-memory operations. Frequent reads and writes of large data may negatively affect user experience.
 
 ## Getting Started
 
