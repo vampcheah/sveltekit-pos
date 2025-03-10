@@ -9,6 +9,9 @@
 	// Format date for display
 	const formatDate = (date: string) => {
 		return new Intl.DateTimeFormat('default', {
+			year: 'numeric',
+			month: '2-digit',
+			day: '2-digit',
 			hour: '2-digit',
 			minute: '2-digit'
 		}).format(new Date(date));
@@ -72,7 +75,7 @@
 										{m.pos_kg()}
 									</p>
 									<p class="text-xs text-muted-foreground">
-										{savedCart.timestamp}
+										{formatDate(savedCart.timestamp)}
 									</p>
 								</div>
 								<Button

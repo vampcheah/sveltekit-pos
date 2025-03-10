@@ -1,34 +1,96 @@
-import { browser } from '$app/environment';
+import { tick } from 'svelte';
 
-export class LocalStore<T> {
-	value = $state<T>() as T;
-	key = '';
+export interface LocalStorageType<T> {
+	current: T;
+}
 
-	constructor(key: string, value: T) {
-		this.key = key;
-		this.value = value;
+export class LocalStorage<T> {
+	#key: string;
+	#listeners = 0;
+	#value: T | undefined;
 
-		if (browser) {
-			const item = localStorage.getItem(key);
-			if (item) this.value = this.deserialize(item);
+	#handler = (e: StorageEvent) => {
+		if (e.storageArea !== localStorage) return;
+		if (e.key !== this.#key) return;
+	};
+
+	constructor(key: string, initial?: T) {
+		this.#key = key;
+		this.#value = initial;
+
+		if (typeof localStorage !== 'undefined') {
+			if (localStorage.getItem(key) === null) {
+				localStorage.setItem(key, JSON.stringify(initial));
+			}
+		}
+	}
+
+	get current() {
+		const root =
+			typeof localStorage !== 'undefined'
+				? JSON.parse(localStorage.getItem(this.#key) || 'null')
+				: this.#value;
+
+		const proxies = new WeakMap();
+
+		const proxy = (value: unknown) => {
+			if (typeof value !== 'object' || value === null) {
+				return value;
+			}
+
+			let p = proxies.get(value);
+
+			if (!p) {
+				p = new Proxy(value, {
+					get: (target, property) => {
+						return proxy(Reflect.get(target, property));
+					},
+					set: (target, property, value) => {
+						Reflect.set(target, property, value);
+
+						if (typeof localStorage !== 'undefined') {
+							localStorage.setItem(this.#key, JSON.stringify(root));
+						}
+
+						return true;
+					}
+				});
+
+				proxies.set(value, p);
+			}
+
+			return p;
+		};
+
+		if ($effect.tracking()) {
+			$effect(() => {
+				if (this.#listeners === 0) {
+					window.addEventListener('storage', this.#handler);
+				}
+
+				this.#listeners += 1;
+
+				return () => {
+					tick().then(() => {
+						this.#listeners -= 1;
+						if (this.#listeners === 0) {
+							window.removeEventListener('storage', this.#handler);
+						}
+					});
+				};
+			});
 		}
 
-		$effect.root(() => {
-			$effect(() => {
-				localStorage.setItem(this.key, this.serialize(this.value));
-			});
-		});
+		return proxy(root);
 	}
 
-	serialize(value: T): string {
-		return JSON.stringify(value);
-	}
-
-	deserialize(item: string): T {
-		return JSON.parse(item);
+	set current(value) {
+		if (typeof localStorage !== 'undefined') {
+			localStorage.setItem(this.#key, JSON.stringify(value));
+		}
 	}
 }
 
-export function localStore<T>(key: string, value: T) {
-	return new LocalStore(key, value);
-}
+export const localStore = <T>(key: string, initial?: T): LocalStorageType<T> => {
+	return new LocalStorage<T>(key, initial);
+};

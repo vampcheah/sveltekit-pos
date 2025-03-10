@@ -2,16 +2,13 @@ import { goto } from '$app/navigation';
 import type { WeightedProduct, Product, SavedCart } from './types';
 import { toast } from 'svelte-sonner';
 import * as m from '$lib/paraglide/messages.js';
+import { localStore, type LocalStorageType } from '$lib/localStore.svelte';
 
 export class CartStore {
 	// Cart state variables
 	cart: { product: WeightedProduct | Product; quantity: number }[] = $state([]);
-	savedCarts: {
-		id: number;
-		name: string;
-		items: { product: WeightedProduct | Product; quantity: number }[];
-		timestamp: string;
-	}[] = $state([]);
+	storedSavedCarts: LocalStorageType<SavedCart[]> = localStore('pos.savedCarts', [] as SavedCart[]);
+	savedCarts: SavedCart[] = $state(this.storedSavedCarts.current);
 
 	// UI state variables
 	searchQuery = $state('');
@@ -113,6 +110,8 @@ export class CartStore {
 			}
 		];
 
+		this.storedSavedCarts.current = this.savedCarts;
+
 		this.newCartName = '';
 		this.isSaving = false;
 		this.cart = [];
@@ -130,6 +129,7 @@ export class CartStore {
 
 	deleteSavedCart = (id: number) => {
 		this.savedCarts = this.savedCarts.filter((cart) => cart.id !== id);
+		this.storedSavedCarts.current = this.savedCarts;
 
 		if (this.savedCarts.length === 0) {
 			this.guestCount = 1;
