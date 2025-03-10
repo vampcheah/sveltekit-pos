@@ -3,6 +3,8 @@ import type { WeightedProduct, Product, SavedCart } from './types';
 import { toast } from 'svelte-sonner';
 import * as m from '$lib/paraglide/messages.js';
 import { localStore, type LocalStorageType } from '$lib/localStore.svelte';
+import { getCurrentTime } from '$lib/tools/time';
+import { IsMobile } from '$lib/hooks/is-mobile.svelte.js';
 
 export class CartStore {
 	// Cart state variables
@@ -16,9 +18,17 @@ export class CartStore {
 	searchQuery = $state('');
 	newCartName = $state('');
 	isSaving = $state(false);
-	guestCount = $state(1);
+	localGuestCount: LocalStorageType<number> = localStore('pos.guestCount', 1);
+	guestCount = $state(this.localGuestCount.current);
 	showSavedCarts = $state(false);
 	showCartOnMobile = $state(false);
+	#isMobile: IsMobile | null = $state(null);
+
+	constructor() {
+		$effect.root(() => {
+			this.#isMobile = new IsMobile();
+		});
+	}
 
 	// Weight input state
 	editingWeightItem: WeightedProduct | null = $state(null);
@@ -103,6 +113,7 @@ export class CartStore {
 		const cartName = this.newCartName.trim() || m.pos_guest({ queue_no: this.guestCount });
 		if (!this.newCartName.trim()) {
 			this.guestCount++;
+			this.localGuestCount.current = this.guestCount;
 		}
 
 		// Add the new cart
@@ -112,7 +123,7 @@ export class CartStore {
 				id: Date.now(),
 				name: cartName,
 				items: [...this.cart],
-				timestamp: new Date().toISOString()
+				timestamp: getCurrentTime().toISOString()
 			}
 		];
 
@@ -120,7 +131,7 @@ export class CartStore {
 
 		this.newCartName = '';
 		this.isSaving = false;
-		this.cart = [];
+		this.clearCart();
 	};
 
 	loadSavedCart = (savedCart: SavedCart) => {
@@ -131,6 +142,11 @@ export class CartStore {
 		if (this.cart.length === 0) {
 			this.showSavedCarts = false;
 		}
+
+		if (this.#isMobile?.current) {
+			this.showSavedCarts = false;
+			this.showCartOnMobile = true;
+		}
 	};
 
 	deleteSavedCart = (id: number) => {
@@ -139,6 +155,7 @@ export class CartStore {
 
 		if (this.savedCarts.length === 0) {
 			this.guestCount = 1;
+			this.localGuestCount.current = 1;
 			this.showSavedCarts = false;
 		}
 	};

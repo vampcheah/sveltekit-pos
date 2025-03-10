@@ -5,17 +5,7 @@
 	import { ShoppingCart, Trash2, Save, Loader2 } from 'lucide-svelte';
 	import { cartStore } from './CartStore.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-
-	// Format date for display
-	const formatDate = (date: string) => {
-		return new Intl.DateTimeFormat('default', {
-			year: 'numeric',
-			month: '2-digit',
-			day: '2-digit',
-			hour: '2-digit',
-			minute: '2-digit'
-		}).format(new Date(date));
-	};
+	import { formatDateTime } from '$lib/tools/time';
 </script>
 
 <div
@@ -43,7 +33,9 @@
 						<CardContent class="p-3" onclick={() => cartStore.loadSavedCart(savedCart)}>
 							<div class="flex items-center justify-between">
 								<div>
-									<p class="font-medium">{savedCart.name}</p>
+									<p class="font-medium">
+										{savedCart.name}
+									</p>
 									<p class="text-xs text-muted-foreground">
 										{savedCart.items.reduce(
 											(
@@ -75,7 +67,7 @@
 										{m.pos_kg()}
 									</p>
 									<p class="text-xs text-muted-foreground">
-										{formatDate(savedCart.timestamp)}
+										{formatDateTime(savedCart.timestamp, 'DD/MM/YYYY HH:mm')}
 									</p>
 								</div>
 								<Button

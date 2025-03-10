@@ -24,7 +24,7 @@
 			>{m.pos_button_remove_from_cart()}</Button
 		>
 	</Dialog.Trigger>
-	<Dialog.Content>
+	<Dialog.Content class="max-w-sm rounded-lg sm:max-w-md">
 		<Dialog.Header>
 			<Dialog.Title>{m.pos_delete_from_cart_title()}</Dialog.Title>
 			<Dialog.Description>
