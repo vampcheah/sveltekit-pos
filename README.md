@@ -129,8 +129,13 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Donate to support: 0xbCF24200CeaB882c3b29d060A5b77217a8dd83Dc
 
-## Version History
+## Version
 
+- 0.0.6
+  - Implementing localstorage to host persistance storage
+  - Multi-language supported on UI
+  - Enhancement on cart management with mobile support
+  - Improvement on Dialog style
 - 0.0.5
   - Replace alert with toast
   - Payment dialog after checkout
