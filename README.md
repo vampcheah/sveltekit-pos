@@ -2,7 +2,7 @@
 
 > This system is not recommended for full commercial use. Further customization and development are encouraged to enhance the overall user experience.
 
-Svelte POS is a modern, responsive Point of Sale solution built with Svelte, Tailwind CSS, and shadcn-svelte components. Designed for modern browsers, it is fully functional offline and can be installed as a Progressive Web App (PWA), final goal. The system utilizes IndexedDB and LocalStorage for local data management, without relying on external databases.
+Svelte POS (vECO) is a modern, responsive Point of Sale solution built with Svelte, Tailwind CSS, and shadcn-svelte components. Designed for modern browsers, it is fully functional offline and can be installed as a Progressive Web App (PWA), final goal. The system utilizes IndexedDB and LocalStorage for local data management, without relying on external databases.
 
 Explores real-world applications of SvelteKit, providing a flexible design framework that is easy to extend and adapt for additional development.
 
