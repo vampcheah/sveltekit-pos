@@ -135,7 +135,10 @@ export class CartStore {
 	};
 
 	loadSavedCart = (savedCart: SavedCart) => {
+		// load the saved cart into the cart
 		this.cart = [...savedCart.items];
+		this.localCart.current = this.cart;
+
 		// Remove the loaded cart from saved carts
 		this.deleteSavedCart(savedCart.id);
 
@@ -201,6 +204,7 @@ export class CartStore {
 		} else {
 			this.cart = [...this.cart, { product: this.editingWeightItem, quantity: weight }];
 		}
+		this.localCart.current = this.cart;
 
 		// Reset the state
 		this.editingWeightItem = null;
