@@ -3,7 +3,7 @@ export const products = [
 		id: 1,
 		name: 'Hamburger',
 		price: 25,
-		category: 'Main Dishes',
+		category: 'Main',
 		image: 'https://placehold.co/100x100',
 		isWeighed: false
 	},
@@ -35,7 +35,7 @@ export const products = [
 		id: 5,
 		name: 'Pizza',
 		price: 45,
-		category: 'Main Dishes',
+		category: 'Main',
 		image: 'https://placehold.co/100x100',
 		isWeighed: false
 	},
@@ -67,7 +67,7 @@ export const products = [
 		id: 9,
 		name: 'Sandwich',
 		price: 20,
-		category: 'Main Dishes',
+		category: 'Main',
 		image: 'https://placehold.co/100x100',
 		isWeighed: false
 	},

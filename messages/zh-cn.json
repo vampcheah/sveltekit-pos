@@ -46,5 +46,7 @@
 	"pos_button_checkout": "结账",
 	"pos_edit_weight_description": "请输入 {name} 的重量",
 	"pos_edit_weight_placeholder": "0.00",
-	"pos_button_confirm_weight": "确认"
+	"pos_button_confirm_weight": "确认",
+	"pos_tax": "税",
+	"pos_discount": "折扣"
 }

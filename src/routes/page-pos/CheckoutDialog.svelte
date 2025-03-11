@@ -1,29 +1,29 @@
 <script lang="ts">
-	import {
-		Dialog,
-		DialogContent,
-		DialogHeader,
-		DialogTitle,
-		DialogFooter
-	} from '$lib/components/ui/dialog';
-	import { Button } from '$lib/components/ui/button';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
 	import { RadioGroup, RadioGroupItem } from '$lib/components/ui/radio-group';
 	import { Label } from '$lib/components/ui/label';
 	import { toast } from 'svelte-sonner';
 	import { CreditCard, Banknote, Printer, Check } from 'lucide-svelte';
 	import { cartStore } from './CartStore.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-
-	// Props
-	let { onClose } = $props();
-
+	import { numberWithCurrency } from '$lib/tools/numbering';
 	// States
+	let isOpen = $state(false);
 	let selectedPaymentMethod = $state('cash');
 	let isProcessing = $state(false);
 	let isCompleted = $state(false);
 	let paidAmount = $state(0);
+	let enableCheckout = $derived(cartStore.cart.length > 0);
 
 	// Payment methods with enhanced metadata
+	const resetDialog = () => {
+		isOpen = false;
+		isProcessing = false;
+		isCompleted = false;
+		toast.dismiss();
+	};
+
 	const paymentMethods = [
 		{
 			id: 'cash',
@@ -48,7 +48,9 @@
 	const processPayment = async () => {
 		isProcessing = true;
 		paidAmount = cartStore.total;
-		await new Promise((resolve) => setTimeout(resolve, 200));
+
+		// TODO: Add payment processing logic
+
 		cartStore.checkout();
 		isProcessing = false;
 		isCompleted = true;
@@ -58,16 +60,27 @@
 		toast.success(m.pos_print_receipt());
 	};
 
-	const completeCheckout = () => {
-		onClose();
+	const paymentComplete = () => {
+		resetDialog();
 	};
 </script>
 
-<Dialog open={true} onOpenChange={onClose}>
-	<DialogContent class="max-w-sm rounded-lg sm:max-w-xl">
-		<DialogHeader>
-			<DialogTitle class="text-2xl font-bold">{m.pos_complete_purchase()}</DialogTitle>
-		</DialogHeader>
+<Dialog.Root bind:open={isOpen}>
+	<Button
+		class="flex w-full items-center justify-center rounded-lg bg-blue-700 py-2 text-white hover:bg-blue-800 {cartStore
+			.cart.length === 0
+			? 'opacity-50'
+			: ''}"
+		disabled={!enableCheckout}
+		onclick={() => (isOpen = true)}
+	>
+		<CreditCard class="mr-2 h-5 w-5" />
+		{m.pos_button_checkout()}
+	</Button>
+	<Dialog.Content class="max-w-sm rounded-lg sm:max-w-xl">
+		<Dialog.Header>
+			<Dialog.Title class="text-2xl font-bold">{m.pos_complete_purchase()}</Dialog.Title>
+		</Dialog.Header>
 
 		{#if !isCompleted}
 			<div class="py-6">
@@ -110,8 +123,8 @@
 				</div>
 			</div>
 
-			<DialogFooter class="gap-2 sm:gap-0">
-				<Button variant="outline" onclick={onClose}>{m.pos_button_cancel()}</Button>
+			<Dialog.Footer class="gap-2 sm:gap-0">
+				<Button variant="outline" onclick={() => (isOpen = false)}>{m.pos_button_cancel()}</Button>
 				<Button
 					onclick={processPayment}
 					disabled={isProcessing}
@@ -126,15 +139,17 @@
 						{m.pos_button_confirm_payment()}
 					{/if}
 				</Button>
-			</DialogFooter>
-		{:else}
+			</Dialog.Footer>
+		{/if}
+
+		{#if isCompleted}
 			<div class="flex flex-col items-center justify-center py-8 text-center">
 				<div class="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-500/20">
 					<Check class="h-8 w-8 text-green-500" />
 				</div>
 				<h3 class="mb-2 text-2xl font-bold text-green-500">{m.pos_payment_successful()}</h3>
 				<p class="mb-8 text-muted-foreground">
-					{@html m.pos_payment_successful_description({ amount: paidAmount.toFixed(2) })}
+					{@html m.pos_payment_successful_description({ amount: numberWithCurrency(paidAmount) })}
 				</p>
 
 				<div class="flex w-full gap-3">
@@ -148,12 +163,12 @@
 					</Button>
 					<Button
 						class="flex-1 bg-blue-600 text-white transition-colors hover:bg-blue-700"
-						onclick={completeCheckout}
+						onclick={paymentComplete}
 					>
 						{m.pos_button_complete_purchase()}
 					</Button>
 				</div>
 			</div>
 		{/if}
-	</DialogContent>
-</Dialog>
+	</Dialog.Content>
+</Dialog.Root>

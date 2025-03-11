@@ -8,7 +8,7 @@
 	let { children } = $props();
 </script>
 
-<Toaster />
+<Toaster position="bottom-left" />
 <ModeWatcher />
 
 <ParaglideJS {i18n}>

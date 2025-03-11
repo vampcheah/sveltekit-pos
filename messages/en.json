@@ -33,7 +33,7 @@
 	"pos_deleting_item": "Deleting Item:",
 	"pos_button_remove_from_cart": "Remove",
 	"pos_button_delete_from_cart": "Delete",
-	"pos_items": "items",
+	"pos_items": "Items",
 	"pos_kg": "kg",
 	"pos_button_saving": "Saving",
 	"pos_button_save": "Save",
@@ -46,5 +46,7 @@
 	"pos_button_checkout": "Checkout",
 	"pos_edit_weight_description": "Please enter the weight for {name}",
 	"pos_edit_weight_placeholder": "0.00",
-	"pos_button_confirm_weight": "Confirm"
+	"pos_button_confirm_weight": "Confirm",
+	"pos_tax": "Tax",
+	"pos_discount": "Discount"
 }

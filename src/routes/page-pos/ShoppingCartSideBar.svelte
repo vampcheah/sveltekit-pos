@@ -1,24 +1,11 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
-	import { ShoppingCart, Trash2, CreditCard } from 'lucide-svelte';
+	import { ShoppingCart, Trash2 } from 'lucide-svelte';
 	import CartItem from './CartItem.svelte';
 	import { cartStore } from './CartStore.svelte';
 	import CheckoutDialog from './CheckoutDialog.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-
-	// State for checkout dialog
-	let showCheckoutDialog = $state(false);
-
-	// Function to open checkout dialog
-	const openCheckoutDialog = () => {
-		showCheckoutDialog = true;
-	};
-
-	// Function to close checkout dialog
-	const closeCheckoutDialog = () => {
-		showCheckoutDialog = false;
-	};
 </script>
 
 <div
@@ -60,9 +47,9 @@
 
 	<!-- Checkout area -->
 	<div class="border-t px-3 py-4 sm:px-4">
-		<div class="space-y-2">
-			<div class="flex justify-between text-lg font-bold">
-				<span>{m.pos_items()}:</span>
+		<div class="flex flex-col pb-4">
+			<div class="text-md flex justify-between">
+				<span>{m.pos_items()}</span>
 				<span>
 					{cartStore.cart.reduce(
 						(sum: number, item: { product: { isWeighed: boolean }; quantity: number }) => {
@@ -87,28 +74,30 @@
 					{m.pos_kg()}
 				</span>
 			</div>
-			<div class="flex justify-between text-lg">
-				<span>{m.pos_subtotal()}:</span>
+			<div class="text-md flex justify-between">
+				<span>{m.pos_subtotal()}</span>
 				<span>{cartStore.total.toFixed(2)}</span>
 			</div>
-			<div class="flex justify-between text-lg font-bold">
-				<span>{m.pos_total()}:</span>
-				<span>{cartStore.total.toFixed(2)}</span>
+			<div class="text-md flex justify-between font-thin">
+				<span>
+					{m.pos_tax()}
+					{#if cartStore.tax}
+						({cartStore.tax}%)
+					{/if}
+				</span>
+				<span>{cartStore.tax.toFixed(2)}</span>
 			</div>
-			<Button
-				class="w-full bg-blue-700 text-white hover:bg-blue-800"
-				size="lg"
-				disabled={cartStore.cart.length === 0}
-				onclick={openCheckoutDialog}
-			>
-				<CreditCard class="mr-2 h-5 w-5" />
-				{m.pos_button_checkout()}
-			</Button>
+			<div class="text-md flex justify-between font-thin">
+				<span>{m.pos_discount()}</span>
+				<span>{cartStore.discount.toFixed(2)}</span>
+			</div>
+			<div class="flex justify-between text-xl font-extrabold">
+				<span>{m.pos_total()}</span>
+				<span>{cartStore.grandTotal.toFixed(2)}</span>
+			</div>
+		</div>
+		<div class="flex justify-between text-lg font-bold">
+			<CheckoutDialog />
 		</div>
 	</div>
 </div>
-
-<!-- Checkout Dialog -->
-{#if showCheckoutDialog}
-	<CheckoutDialog onClose={closeCheckoutDialog} />
-{/if}

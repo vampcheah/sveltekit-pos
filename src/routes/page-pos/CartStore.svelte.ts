@@ -14,6 +14,10 @@ export class CartStore {
 	localSavedCarts: LocalStorageType<SavedCart[]> = localStore('pos.savedCarts', [] as SavedCart[]);
 	savedCarts: SavedCart[] = $state(this.localSavedCarts.current);
 
+	// Checkout state variables
+	discount = $state(0);
+	tax = $state(0);
+
 	// UI state variables
 	searchQuery = $state('');
 	newCartName = $state('');
@@ -37,6 +41,13 @@ export class CartStore {
 	// Computed values
 	get total() {
 		return this.cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+	}
+
+	get grandTotal() {
+		const calculatedTax = this.total * (this.tax / 100);
+		const calculatedDiscount = this.discount;
+
+		return this.total + calculatedTax - calculatedDiscount;
 	}
 
 	get cartItemCount() {
