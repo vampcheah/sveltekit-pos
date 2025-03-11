@@ -43,7 +43,7 @@
 
 	<!-- Product grid with ScrollArea -->
 	<ScrollArea class="flex-1">
-		<div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+		<div class="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4">
 			{#each filteredProducts as product (product.id)}
 				<ProductItem {product} />
 			{/each}

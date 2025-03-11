@@ -6,6 +6,7 @@
 	import { cartStore } from './CartStore.svelte';
 	import CheckoutDialog from './CheckoutDialog.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import { numberWithCurrency } from '$lib/tools/numbering';
 </script>
 
 <div
@@ -93,7 +94,7 @@
 			</div>
 			<div class="flex justify-between text-xl font-extrabold">
 				<span>{m.pos_total()}</span>
-				<span>{cartStore.grandTotal.toFixed(2)}</span>
+				<span>{numberWithCurrency(cartStore.grandTotal)}</span>
 			</div>
 		</div>
 		<div class="flex justify-between text-lg font-bold">
