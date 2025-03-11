@@ -89,19 +89,11 @@ Products can be added through the admin interface or by modifying the product da
 
 The application uses Tailwind CSS for styling. Customize the look and feel by modifying the `tailwind.config.js` file.
 
-## Future Plans
-
-### Mobile Responsive Design [Done]
-
-Implement a fully mobile-responsive layout to ensure a seamless experience across all devices, with a focus on improving usability and navigation on smaller screens.
+## ToDo List
 
 ### Integration of IndexedDB
 
 IndexedDB will be introduced for efficient local storage of data, enabling offline capabilities and improved performance for returning users.
-
-### Payment Process Improvements
-
-A more intuitive checkout experience will be implemented, including a modal popup that guides the user through the entire payment process, enhancing the overall flow and ease of payment.
 
 ### Cryptocurrency Payment Module
 
@@ -110,10 +102,6 @@ Add support for cryptocurrency payments, giving users more flexibility by allowi
 ### Basic User Dashboard
 
 A simple yet functional user dashboard will be added, providing users with essential account management features, including order history, profile settings, and more.
-
-### Multi-language Support [Done]
-
-Add support for multiple languages to make the app more accessible to a wider audience.
 
 ## License
 
@@ -131,6 +119,11 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Version
 
+- current-dev
+  - Implementing currency to display price
+  - Tax supported
+  - Discount supported
+  - Fixed: cannot checkout after refresh the page or load from local saved cart
 - 0.0.6
   - Implementing localstorage to host persistance storage
   - Multi-language supported on UI
