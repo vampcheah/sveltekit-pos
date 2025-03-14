@@ -1,16 +1,9 @@
 <script lang="ts">
-	import {
-		Dialog,
-		DialogContent,
-		DialogDescription,
-		DialogFooter,
-		DialogHeader,
-		DialogTitle
-	} from '$lib/components/ui/dialog';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
 	import { Trash2 } from 'lucide-svelte';
-	import { cartStore } from './CartStore.svelte';
+	import { cartStore } from '../CartStore.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let isNewOpen = $state(true);
@@ -58,19 +51,19 @@
 	}
 </script>
 
-<Dialog
+<Dialog.Root
 	open={!!cartStore.editingWeightItem}
 	onOpenChange={(open) => !open && cartStore.cancelWeightInput()}
 >
-	<DialogContent class="max-w-sm rounded-lg sm:max-w-md">
-		<DialogHeader>
-			<DialogTitle class="text-xl">{m.pos_edit_weight()}</DialogTitle>
-			<DialogDescription>
+	<Dialog.Content class="max-w-sm rounded-lg sm:max-w-md">
+		<Dialog.Header>
+			<Dialog.Title class="text-xl">{m.pos_edit_weight()}</Dialog.Title>
+			<Dialog.Description>
 				{#if cartStore.editingWeightItem}
 					{m.pos_edit_weight_description({ name: cartStore.editingWeightItem.name })}
 				{/if}
-			</DialogDescription>
-		</DialogHeader>
+			</Dialog.Description>
+		</Dialog.Header>
 
 		<div class="flex flex-col gap-4 py-4">
 			<div class="flex items-center gap-2">
@@ -116,7 +109,7 @@
 			</div>
 		</div>
 
-		<DialogFooter class="flex flex-col flex-col-reverse gap-2 sm:flex-row sm:justify-between">
+		<Dialog.Footer class="flex flex-col flex-col-reverse gap-2 sm:flex-row sm:justify-between">
 			<Button variant="outline" onclick={cartStore.cancelWeightInput}>
 				{m.pos_button_cancel()}
 			</Button>
@@ -127,6 +120,6 @@
 			>
 				{m.pos_button_confirm_weight()}
 			</Button>
-		</DialogFooter>
-	</DialogContent>
-</Dialog>
+		</Dialog.Footer>
+	</Dialog.Content>
+</Dialog.Root>

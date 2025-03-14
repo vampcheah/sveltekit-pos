@@ -14,7 +14,7 @@
 	import SavedCarts from './SavedCarts.svelte';
 	import WeightInputDialog from './WeightInputDialog.svelte';
 	// Import cart store
-	import { cartStore } from './CartStore.svelte';
+	import { cartStore } from '../CartStore.svelte';
 	// Import i18n
 	import * as m from '$lib/paraglide/messages.js';
 

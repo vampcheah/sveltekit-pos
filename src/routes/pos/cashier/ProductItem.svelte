@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Card, CardContent } from '$lib/components/ui/card';
 	import { Badge } from '$lib/components/ui/badge';
-	import { cartStore } from './CartStore.svelte';
+	import { cartStore } from '../CartStore.svelte';
 
 	let { product } = $props();
 	let isFlashing = $state(false);

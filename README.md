@@ -124,6 +124,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
   - Tax supported
   - Discount supported
   - Fixed: cannot checkout after refresh the page or load from local saved cart
+  - Customer checkout cart (Screen UI)
+  - Synchronization between customer screen and cashier
+  - Foldering: POS Cashier / Display
 - 0.0.6
   - Implementing localstorage to host persistance storage
   - Multi-language supported on UI

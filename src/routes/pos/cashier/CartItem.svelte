@@ -3,8 +3,8 @@
 	import { Separator } from '$lib/components/ui/separator';
 	import { Plus, Minus } from 'lucide-svelte';
 	import DeleteFromCart from './DeleteFromCart.svelte';
-	import type { WeightedProduct } from './types';
-	import { cartStore } from './CartStore.svelte';
+	import type { WeightedProduct } from '../types';
+	import { cartStore } from '../CartStore.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
 	let { item } = $props();

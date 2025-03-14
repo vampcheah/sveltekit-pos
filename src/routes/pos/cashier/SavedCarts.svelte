@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
-	import { Card, CardContent } from '$lib/components/ui/card';
+	import * as Card from '$lib/components/ui/card/index.js';
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
 	import { ShoppingCart, Trash2, Save, Loader2 } from 'lucide-svelte';
-	import { cartStore } from './CartStore.svelte';
+	import { cartStore } from '../CartStore.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import { formatDateTime } from '$lib/tools/time';
 </script>
@@ -29,8 +29,8 @@
 		{:else}
 			<div class="space-y-3 p-3">
 				{#each cartStore.savedCarts as savedCart (savedCart.id)}
-					<Card class="cursor-pointer transition-colors hover:bg-accent/50">
-						<CardContent class="p-3" onclick={() => cartStore.loadSavedCart(savedCart)}>
+					<Card.Root class="cursor-pointer transition-colors hover:bg-accent/50">
+						<Card.Content class="p-3" onclick={() => cartStore.loadSavedCart(savedCart)}>
 							<div class="flex items-center justify-between">
 								<div>
 									<p class="font-medium">
@@ -81,8 +81,8 @@
 									<Trash2 class="h-4 w-4" />
 								</Button>
 							</div>
-						</CardContent>
-					</Card>
+						</Card.Content>
+					</Card.Root>
 				{/each}
 			</div>
 		{/if}

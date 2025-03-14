@@ -3,7 +3,7 @@
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
 	import { ShoppingCart, Trash2 } from 'lucide-svelte';
 	import CartItem from './CartItem.svelte';
-	import { cartStore } from './CartStore.svelte';
+	import { cartStore } from '../CartStore.svelte';
 	import CheckoutDialog from './CheckoutDialog.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import { numberWithCurrency } from '$lib/tools/numbering';
@@ -49,7 +49,7 @@
 	<!-- Checkout area -->
 	<div class="border-t px-3 py-4 sm:px-4">
 		<div class="flex flex-col pb-4">
-			<div class="text-md flex justify-between">
+			<div class="text-md flex justify-between font-thin">
 				<span>{m.pos_items()}</span>
 				<span>
 					{cartStore.cart.reduce(
@@ -75,7 +75,7 @@
 					{m.pos_kg()}
 				</span>
 			</div>
-			<div class="text-md flex justify-between">
+			<div class="text-md flex justify-between font-thin">
 				<span>{m.pos_subtotal()}</span>
 				<span>{cartStore.total.toFixed(2)}</span>
 			</div>
