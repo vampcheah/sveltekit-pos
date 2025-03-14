@@ -1,4 +1,4 @@
-# Sveltekit POS System
+# Sveltekit POS
 
 > This system is not recommended for full commercial use. Further customization and development are encouraged to enhance the overall user experience.
 
