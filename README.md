@@ -105,7 +105,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-- [Svelte](https://svelte.dev/) - The frontend framework
+- [Svelte/Sveltekit](https://svelte.dev/) - The frontend framework
 - [Tailwind CSS](https://tailwindcss.com/) - For styling
 - [shadcn-svelte](https://next.shadcn-svelte.com/docs) - For UI components
 
