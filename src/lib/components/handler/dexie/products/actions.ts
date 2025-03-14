@@ -5,7 +5,32 @@ import { defaultProduct, type Product } from './types';
 export const actions = {
 	// get all products
 	getAll: async () => {
-		return await db.products.toArray();
+		const products = await db.products.toArray();
+		const columns = Object.entries(db.products.schema.indexes).map(([key, value]) => ({
+			accessorKey: key,
+			header: value.name
+		}));
+
+		const newProducts: Product[] = [];
+
+		products.forEach((product) => {
+			const productData = {
+				...Object.entries(product).reduce(
+					(data, [key, value]) => {
+						const header = columns.find((column) => column.accessorKey === key)?.header;
+						if (header) {
+							data[header] = value;
+						}
+						return data;
+					},
+					{} as Record<string, string>
+				),
+				id: product.id
+			};
+			newProducts.push(productData as Product);
+		});
+
+		return newProducts;
 	},
 
 	// get product by id
@@ -46,30 +71,8 @@ export const actions = {
 	// search product
 	search: async (query: string) => {
 		return await db.products
-			.filter(
-				(product) =>
-					product.name.toLowerCase().includes(query.toLowerCase()) ||
-					product.description.toLowerCase().includes(query.toLowerCase()) ||
-					product.barcode.includes(query) ||
-					product.sku.includes(query)
-			)
+			.filter((product) => product.name.toLowerCase().includes(query.toLowerCase()))
 			.toArray();
-	},
-
-	// update stock
-	updateStock: async (id: number, quantity: number) => {
-		const product = await db.products.get(id);
-		if (!product) throw new Error('Product not found');
-
-		return await db.products.update(id, {
-			stock: product.stock + quantity,
-			updatedAt: new Date()
-		});
-	},
-
-	// get low stock products
-	getLowStock: async (threshold = 10) => {
-		return await db.products.where('stock').below(threshold).toArray();
 	},
 
 	// get products with category information
@@ -78,7 +81,7 @@ export const actions = {
 		const categories = await db.categories.toArray();
 
 		return products.map((product) => {
-			const category = categories.find((c) => c.id === product.categoryId) || null;
+			const category = categories.find((c) => c.code === product.category) || null;
 			return { ...product, category };
 		});
 	}

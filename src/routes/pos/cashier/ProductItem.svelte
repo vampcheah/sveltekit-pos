@@ -2,7 +2,7 @@
 	import { Card, CardContent } from '$lib/components/ui/card';
 	import { Badge } from '$lib/components/ui/badge';
 	import { cartStore } from '../CartStore.svelte';
-
+	import { project } from '$lib/index';
 	let { product } = $props();
 	let isFlashing = $state(false);
 
@@ -26,7 +26,11 @@
 	onclick={onAddCart}
 >
 	<CardContent class="p-4">
-		<img src={product.image} alt={product.name} class="mb-2 h-32 w-full rounded-md object-cover" />
+		<img
+			src={product.image || project.default_image}
+			alt={product.name}
+			class="mb-2 h-32 w-full rounded-md object-cover"
+		/>
 		<h3 class="font-medium">{product.name}</h3>
 		<div class="mt-1 flex items-center justify-between">
 			<span class="text-lg font-bold text-green-500">{parseFloat(product.price).toFixed(2)}</span>

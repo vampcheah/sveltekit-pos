@@ -1,23 +1,47 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { Tabs, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
 	import ProductItem from './ProductItem.svelte';
 	import { cartStore } from '../CartStore.svelte';
-	// Import sample data
-	import { products, categories } from '../load_data';
+	import { Loader2 } from 'lucide-svelte';
+	// load data
+	import {
+		actions as categoriesActions,
+		type Category
+	} from '$lib/components/handler/dexie/categories';
+	import { actions as productsActions, type Product } from '$lib/components/handler/dexie/products';
 
-	let activeCategory = $state('All');
-
+	// state variables
+	let isLoading = $state(true);
+	let activeCategory = $state('');
+	let categories = $state<Category[]>([]);
+	let products = $state<Product[]>([]);
 	// Filter products
 	const filteredProducts = $derived(
 		products.filter((product: any) => {
 			const matchesSearch = product.name
 				.toLowerCase()
 				.includes(cartStore.searchQuery.toLowerCase());
-			const matchesCategory = activeCategory === 'All' || product.category === activeCategory;
+			const matchesCategory = activeCategory === '' || product.category === activeCategory;
 			return matchesSearch && matchesCategory;
 		})
 	);
+
+	onMount(async () => {
+		// set loading to true
+		isLoading = true;
+
+		// get all categories
+		categories = await categoriesActions.getAll();
+		activeCategory = categories[0].code;
+
+		// get all products
+		products = await productsActions.getAll();
+
+		// set loading to false
+		isLoading = false;
+	});
 </script>
 
 <div class="flex flex-1 flex-col overflow-hidden p-2 sm:p-6">
@@ -29,11 +53,11 @@
 			>
 				{#each categories as category}
 					<TabsTrigger
-						value={category}
-						onclick={() => (activeCategory = category)}
+						value={category.code}
+						onclick={() => (activeCategory = category.code)}
 						class="min-w-[100px] whitespace-nowrap transition-all duration-200 data-[state=active]:bg-blue-700 data-[state=active]:text-white data-[state=active]:shadow-sm sm:min-w-[150px]"
 					>
-						{category}
+						{category.name}
 					</TabsTrigger>
 				{/each}
 			</TabsList>
@@ -42,10 +66,16 @@
 
 	<!-- Product grid with ScrollArea -->
 	<ScrollArea class="flex-1">
-		<div class="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4">
-			{#each filteredProducts as product (product.id)}
-				<ProductItem {product} />
-			{/each}
-		</div>
+		{#if !isLoading}
+			<div class="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4">
+				{#each filteredProducts as product (product.id)}
+					<ProductItem {product} />
+				{/each}
+			</div>
+		{:else}
+			<div class="flex h-full items-center justify-center">
+				<Loader2 class="h-10 w-10 animate-spin" />
+			</div>
+		{/if}
 	</ScrollArea>
 </div>

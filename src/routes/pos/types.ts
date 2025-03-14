@@ -5,11 +5,11 @@ export interface Product {
 	price: number;
 	unit?: string;
 	category: string;
-	isWeighed: false;
+	isWeighted: false;
 }
 
-export interface WeightedProduct extends Omit<Product, 'isWeighed'> {
-	isWeighed: true;
+export interface WeightedProduct extends Omit<Product, 'isWeighted'> {
+	isWeighted: true;
 	unit: string;
 }
 

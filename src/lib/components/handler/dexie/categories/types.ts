@@ -13,17 +13,13 @@
 
 export interface Category {
 	id?: number;
+	code: string;
 	name: string;
-	description: string;
-	createdAt: Date;
-	updatedAt: Date;
 }
 
 export const defaultCategory = {
-	name: '',
-	description: '',
-	createdAt: new Date(),
-	updatedAt: new Date()
+	code: '',
+	name: ''
 };
 
 export default defaultCategory;

@@ -91,10 +91,6 @@ The application uses Tailwind CSS for styling. Customize the look and feel by mo
 
 ## ToDo List
 
-### Integration of IndexedDB
-
-IndexedDB will be introduced for efficient local storage of data, enabling offline capabilities and improved performance for returning users.
-
 ### Cryptocurrency Payment Module
 
 Add support for cryptocurrency payments, giving users more flexibility by allowing them to make transactions using various digital currencies.
@@ -121,7 +117,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - current-dev
   - IndexedDB to product and category
-  - context menu
+  - LICENSE-MIT
 - 0.0.7
   - Implementing currency to display price
   - Tax supported

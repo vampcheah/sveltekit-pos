@@ -6,6 +6,8 @@
 	import type { WeightedProduct } from '../types';
 	import { cartStore } from '../CartStore.svelte';
 	import * as m from '$lib/paraglide/messages.js';
+	import { formatNumber, isTrue } from '$lib/tools/numbering';
+	import { project } from '$lib/index';
 
 	let { item } = $props();
 
@@ -17,15 +19,15 @@
 		<!-- Product image and info -->
 		<div class="flex gap-3">
 			<img
-				src={item.product.image}
+				src={item.product.image || project.default_image}
 				alt={item.product.name}
 				class="h-16 w-16 rounded-md object-cover shadow-sm"
 			/>
 			<div class="flex flex-col items-start justify-center">
 				<h4 class="text-base font-medium">{item.product.name}</h4>
 				<p class="text-sm text-muted-foreground">
-					{item.product.price.toFixed(2)} ×
-					{#if item.product.isWeighed}
+					{formatNumber(item.product.price)} ×
+					{#if isTrue(item.product.isWeighted)}
 						{item.quantity.toFixed(2)} {item.product.unit}
 					{:else}
 						{item.quantity}
@@ -45,7 +47,7 @@
 				</div>
 			</div>
 			<div class="flex items-center gap-2">
-				{#if item.product.isWeighed}
+				{#if isTrue(item.product.isWeighted)}
 					<Button
 						variant="outline"
 						size="sm"

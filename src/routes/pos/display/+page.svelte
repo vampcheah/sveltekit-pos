@@ -3,7 +3,7 @@
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
 	import type { WeightedProduct, Product } from '../types';
 	import * as Card from '$lib/components/ui/card/index.js';
-	import { numberWithCurrency } from '$lib/tools/numbering';
+	import { numberWithCurrency, isTrue } from '$lib/tools/numbering';
 	import { localStore, type LocalStorageType } from '$lib/localStore.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
@@ -103,9 +103,9 @@
 					<span>{m.pos_items()}</span>
 					<span>
 						{cartItems.reduce(
-							(sum: number, item: { product: { isWeighed: boolean }; quantity: number }) => {
+							(sum: number, item: { product: { isWeighted: boolean }; quantity: number }) => {
 								// Only count non-weighed items for the item count
-								if (!item.product.isWeighed) {
+								if (!isTrue(item.product.isWeighted)) {
 									return sum + item.quantity;
 								}
 								return sum;
@@ -115,9 +115,9 @@
 						{m.pos_items()},
 						{cartItems
 							.reduce(
-								(sum: number, item: { product: { isWeighed: boolean }; quantity: number }) => {
+								(sum: number, item: { product: { isWeighted: boolean }; quantity: number }) => {
 									// Only count weighed items for the weight
-									if (item.product.isWeighed) {
+									if (isTrue(item.product.isWeighted)) {
 										return sum + item.quantity;
 									}
 									return sum;
