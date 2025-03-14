@@ -1,8 +1,8 @@
-# Svelte POS System
+# Sveltekit POS System
 
 > This system is not recommended for full commercial use. Further customization and development are encouraged to enhance the overall user experience.
 
-Svelte POS (vECO) is a modern, responsive Point of Sale solution built with Svelte, Tailwind CSS, and shadcn-svelte components. Designed for modern browsers, it is fully functional offline and can be installed as a Progressive Web App (PWA), final goal. The system utilizes IndexedDB and LocalStorage for local data management, without relying on external databases.
+Sveltekit POS (vECO) is a modern, responsive Point of Sale solution built with Sveltekit, Tailwind CSS, and shadcn-svelte components. Designed for modern browsers, it is fully functional offline and can be installed as a Progressive Web App (PWA), final goal. The system utilizes IndexedDB and LocalStorage for local data management, without relying on external databases.
 
 Explores real-world applications of SvelteKit, providing a flexible design framework that is easy to extend and adapt for additional development.
 
@@ -17,7 +17,7 @@ Explores real-world applications of SvelteKit, providing a flexible design frame
 
 ## Tech Stack
 
-- **Frontend**: [Svelte V5](https://svelte.dev/) with the new runes system
+- **Frontend**: [Sveltekit/Svelte V5](https://svelte.dev/) with the new runes system
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **UI Components**: [shadcn-svelte](https://www.shadcn-svelte.com/)
 
@@ -121,6 +121,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - current-dev
   - IndexedDB to product and category
+  - context menu
 - 0.0.7
   - Implementing currency to display price
   - Tax supported
