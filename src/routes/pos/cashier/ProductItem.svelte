@@ -3,7 +3,7 @@
 	import { Badge } from '$lib/components/ui/badge';
 	import { cartStore } from '../CartStore.svelte';
 	import { project } from '$lib/index';
-  
+
 	let { product } = $props();
 	let isFlashing = $state(false);
 	const handleFlash = () => {
@@ -17,6 +17,7 @@
 		handleFlash();
 	};
 </script>
+
 <Card
 	class="max-w-xs cursor-pointer transition-shadow hover:shadow-md {isFlashing
 		? 'bg-blue-800'
@@ -24,11 +25,11 @@
 	onclick={onAddCart}
 >
 	<CardContent class="p-4">
-		<div class="aspect-[2/1] overflow-hidden rounded-md flex items-center mb-2">
+		<div class="mb-2 flex aspect-[2/1] items-center overflow-hidden rounded-md">
 			<img
 				src={product.image || project.default_image}
 				alt={product.name}
-				class="w-full h-auto object-cover"
+				class="h-auto w-full object-cover"
 			/>
 		</div>
 		<h3 class="font-medium">{product.name}</h3>

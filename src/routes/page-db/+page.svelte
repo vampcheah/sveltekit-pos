@@ -209,7 +209,7 @@
 								<Label for={column.accessorKey}>{column.header}</Label>
 								<Input
 									id={column.accessorKey}
-									bind:value={currentRecord[column.accessorKey]}
+									bind:value={currentRecord[column.header]}
 									placeholder={`Enter ${column.header.toLowerCase()}`}
 								/>
 							</div>
@@ -224,7 +224,15 @@
 			</Dialog>
 
 			<Dialog bind:open={isEditDialogOpen}>
-				<DialogContent class="max-w-sm rounded-lg sm:max-w-xl">
+				<DialogContent
+					class="max-w-sm rounded-lg sm:max-w-xl"
+					onkeydown={(e) => {
+						if (e.key === 'Enter') {
+							e.preventDefault();
+							saveRecord();
+						}
+					}}
+				>
 					<DialogHeader>
 						<DialogTitle>Edit Record</DialogTitle>
 						<DialogDescription>Update the record details.</DialogDescription>
@@ -236,7 +244,7 @@
 								<Label for={`edit-${column.accessorKey}`}>{column.header}</Label>
 								<Input
 									id={`edit-${column.accessorKey}`}
-									bind:value={currentRecord[column.accessorKey]}
+									bind:value={currentRecord[column.header]}
 									placeholder={`Enter ${column.header.toLowerCase()}`}
 								/>
 							</div>
@@ -270,7 +278,7 @@
 						{#each tableData as row}
 							<TableRow>
 								{#each columns as column}
-									<TableCell>{row[column.accessorKey]}</TableCell>
+									<TableCell>{row[column.header]}</TableCell>
 								{/each}
 								<TableCell>
 									<div class="flex items-center gap-2">

@@ -6,31 +6,8 @@ export const actions = {
 	// get all products
 	getAll: async () => {
 		const products = await db.products.toArray();
-		const columns = Object.entries(db.products.schema.indexes).map(([key, value]) => ({
-			accessorKey: key,
-			header: value.name
-		}));
 
-		const newProducts: Product[] = [];
-
-		products.forEach((product) => {
-			const productData = {
-				...Object.entries(product).reduce(
-					(data, [key, value]) => {
-						const header = columns.find((column) => column.accessorKey === key)?.header;
-						if (header) {
-							data[header] = value;
-						}
-						return data;
-					},
-					{} as Record<string, string>
-				),
-				id: product.id
-			};
-			newProducts.push(productData as Product);
-		});
-
-		return newProducts;
+		return products;
 	},
 
 	// get product by id

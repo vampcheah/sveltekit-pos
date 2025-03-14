@@ -6,31 +6,8 @@ export const actions = {
 	// get all categories
 	getAll: async () => {
 		const categories = await db.categories.toArray();
-		const columns = Object.entries(db.categories.schema.indexes).map(([key, value]) => ({
-			accessorKey: key,
-			header: value.name
-		}));
 
-		const newCategories: Category[] = [];
-
-		categories.forEach((category) => {
-			const categoryData = {
-				...Object.entries(category).reduce(
-					(data, [key, value]) => {
-						const header = columns.find((column) => column.accessorKey === key)?.header;
-						if (header) {
-							data[header] = value;
-						}
-						return data;
-					},
-					{} as Record<string, string>
-				),
-				id: category.id
-			};
-			newCategories.push(categoryData as Category);
-		});
-
-		return newCategories;
+		return categories;
 	},
 
 	// get category by id

@@ -9,25 +9,38 @@
 
 <div class="flex h-screen flex-col items-center justify-center gap-4">
 	<h1>Welcome to Svelte-POS</h1>
-	<Button
-		class="bg-blue-700 text-white hover:bg-blue-800"
-		variant="outline"
-		onclick={() => goto('/pos/cashier')}
-	>
-		Go to POS
-	</Button>
-	<Button
-		class="bg-blue-700 text-white hover:bg-blue-800"
-		variant="outline"
-		onclick={() => openWindow('/pos/display')}
-	>
-		Go to POS Display
-	</Button>
-	<Button
-		class="bg-blue-700 text-white hover:bg-blue-800"
-		variant="outline"
-		onclick={() => goto('/page-db')}
-	>
-		Go to DB
-	</Button>
+	<div class="flex w-full max-w-2xl flex-col gap-4 p-2">
+		<div class="flex gap-4">
+			<Button
+				class="basis-1/2 bg-blue-700 text-white hover:bg-blue-800"
+				variant="outline"
+				onclick={() => goto('/pos/cashier')}
+			>
+				Go to POS
+			</Button>
+			<Button
+				class="basis-1/2 bg-blue-700 text-white hover:bg-blue-800"
+				variant="outline"
+				onclick={() => openWindow('/pos/display')}
+			>
+				Go to POS Display
+			</Button>
+		</div>
+		<div class="flex gap-4">
+			<Button
+				class="basis-1/2 bg-blue-700 text-white hover:bg-blue-800"
+				variant="outline"
+				onclick={() => goto('/page-db')}
+			>
+				DB - Raw Management
+			</Button>
+			<Button
+				class="basis-1/2 bg-red-700 text-white hover:bg-red-800"
+				variant="outline"
+				onclick={() => goto('/pos/importer')}
+			>
+				Import Sample Data
+			</Button>
+		</div>
+	</div>
 </div>
