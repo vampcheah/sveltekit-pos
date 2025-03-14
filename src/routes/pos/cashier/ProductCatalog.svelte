@@ -4,7 +4,7 @@
 	import ProductItem from './ProductItem.svelte';
 	import { cartStore } from '../CartStore.svelte';
 	// Import sample data
-	import { products, categories } from '../load_data/catalog';
+	import { products, categories } from '../load_data';
 
 	let activeCategory = $state('All');
 
