@@ -1,3 +1,5 @@
+export const categories = ['All', 'Food', 'Drinks', 'Desserts', 'Main'];
+
 export const products = [
 	{
 		id: 1,

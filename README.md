@@ -119,6 +119,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Version
 
+- current-dev
+  - IndexedDB to product and category
 - 0.0.7
   - Implementing currency to display price
   - Tax supported
