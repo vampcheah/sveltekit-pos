@@ -6,7 +6,7 @@
 	import { cartStore } from '../CartStore.svelte';
 	import CheckoutDialog from './CheckoutDialog.svelte';
 	import * as m from '$lib/paraglide/messages.js';
-	import { numberWithCurrency } from '$lib/tools/numbering';
+	import { numberWithCurrency, isTrue } from '$lib/tools/numbering';
 </script>
 
 <div
@@ -53,9 +53,9 @@
 				<span>{m.pos_items()}</span>
 				<span>
 					{cartStore.cart.reduce(
-						(sum: number, item: { product: { isWeighed: boolean }; quantity: number }) => {
+						(sum: number, item: { product: { isWeighted: boolean }; quantity: number }) => {
 							// Only count non-weighed items for the item count
-							if (!item.product.isWeighed) {
+							if (!isTrue(item.product.isWeighted)) {
 								return sum + item.quantity;
 							}
 							return sum;
@@ -64,9 +64,9 @@
 					)}
 					{m.pos_items()},
 					{cartStore.cart
-						.reduce((sum: number, item: { product: { isWeighed: boolean }; quantity: number }) => {
+						.reduce((sum: number, item: { product: { isWeighted: boolean }; quantity: number }) => {
 							// Only count weighed items for the weight
-							if (item.product.isWeighed) {
+							if (isTrue(item.product.isWeighted)) {
 								return sum + item.quantity;
 							}
 							return sum;

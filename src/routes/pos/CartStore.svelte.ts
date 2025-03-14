@@ -5,6 +5,7 @@ import * as m from '$lib/paraglide/messages.js';
 import { localStore, type LocalStorageType } from '$lib/localStore.svelte';
 import { getCurrentTime } from '$lib/tools/time';
 import { IsMobile } from '$lib/hooks/is-mobile.svelte.js';
+import { isTrue } from '$lib/tools/numbering';
 
 export class CartStore {
 	// Cart state variables
@@ -56,7 +57,7 @@ export class CartStore {
 
 	// Cart management methods
 	addToCart = (product: WeightedProduct | Product) => {
-		if (product.isWeighed) {
+		if (isTrue(product.isWeighted)) {
 			// For weighted item, open the weight input dialog
 			this.editingWeightItem = product as WeightedProduct;
 

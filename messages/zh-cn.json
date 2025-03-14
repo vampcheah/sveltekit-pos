@@ -43,6 +43,8 @@
 	"pos_cart_empty": "您的购物车是空的",
 	"pos_subtotal": "小计",
 	"pos_total": "总计",
+	"pos_qty": "数量",
+	"pos_price": "价格",
 	"pos_button_checkout": "结账",
 	"pos_edit_weight_description": "请输入 {name} 的重量",
 	"pos_edit_weight_placeholder": "0.00",

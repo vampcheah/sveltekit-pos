@@ -189,7 +189,15 @@
 						Add Record
 					</Button>
 				</DialogTrigger>
-				<DialogContent class="max-w-sm rounded-lg sm:max-w-xl">
+				<DialogContent
+					class="max-w-sm rounded-lg sm:max-w-xl"
+					onkeydown={(e) => {
+						if (e.key === 'Enter') {
+							e.preventDefault();
+							saveRecord();
+						}
+					}}
+				>
 					<DialogHeader>
 						<DialogTitle>Add New Record</DialogTitle>
 						<DialogDescription>Fill in the details for the new record.</DialogDescription>

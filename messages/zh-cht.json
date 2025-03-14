@@ -43,6 +43,8 @@
 	"pos_cart_empty": "您的購物車是空的",
 	"pos_subtotal": "小計",
 	"pos_total": "總計",
+	"pos_qty": "數量",
+	"pos_price": "價格",
 	"pos_button_checkout": "結帳",
 	"pos_edit_weight_description": "請輸入 {name} 的重量",
 	"pos_edit_weight_placeholder": "0.00",

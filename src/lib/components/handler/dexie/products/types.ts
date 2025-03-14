@@ -21,30 +21,18 @@
 export interface Product {
 	id?: number;
 	name: string;
-	categoryId: number;
+	category: string;
 	price: number;
-	cost: number;
-	barcode: string;
-	sku: string;
-	description: string;
-	imageUrl: string;
-	stock: number;
-	createdAt: Date;
-	updatedAt: Date;
+	image: string;
+	isWeighted: boolean;
 }
 
 export const defaultProduct = {
 	name: '',
-	categoryId: null,
+	category: '',
 	price: 0,
-	cost: 0,
-	barcode: '',
-	sku: '',
-	description: '',
-	imageUrl: '',
-	stock: 0,
-	createdAt: new Date(),
-	updatedAt: new Date()
+	image: '',
+	isWeighted: false
 };
 
 export default defaultProduct;

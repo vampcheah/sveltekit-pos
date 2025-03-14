@@ -3,7 +3,7 @@
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
 	import type { WeightedProduct, Product } from '../types';
 	import * as Card from '$lib/components/ui/card/index.js';
-	import { numberWithCurrency } from '$lib/tools/numbering';
+	import { numberWithCurrency, isTrue } from '$lib/tools/numbering';
 	import { localStore, type LocalStorageType } from '$lib/localStore.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 
@@ -69,17 +69,17 @@
 			<ScrollArea class="flex-1">
 				{#if cartItems.length === 0}
 					<div class="flex h-full items-center justify-center p-8">
-						<p class="text-xl text-muted-foreground">No items in cart</p>
+						<p class="text-xl text-muted-foreground">{m.pos_cart_empty()}</p>
 					</div>
 				{:else}
 					<div class="w-full">
 						<div
 							class="sticky top-0 z-10 grid grid-cols-4 gap-4 border-b bg-background p-4 font-medium"
 						>
-							<div>Item</div>
-							<div class="text-right">Qty</div>
-							<div class="text-right">Price</div>
-							<div class="text-right">Total</div>
+							<div>{m.pos_items()}</div>
+							<div class="text-right">{m.pos_qty()}</div>
+							<div class="text-right">{m.pos_price()}</div>
+							<div class="text-right">{m.pos_total()}</div>
 						</div>
 						<div class="divide-y">
 							{#each cartItems as item}
@@ -103,9 +103,9 @@
 					<span>{m.pos_items()}</span>
 					<span>
 						{cartItems.reduce(
-							(sum: number, item: { product: { isWeighed: boolean }; quantity: number }) => {
+							(sum: number, item: { product: { isWeighted: boolean }; quantity: number }) => {
 								// Only count non-weighed items for the item count
-								if (!item.product.isWeighed) {
+								if (!isTrue(item.product.isWeighted)) {
 									return sum + item.quantity;
 								}
 								return sum;
@@ -115,9 +115,9 @@
 						{m.pos_items()},
 						{cartItems
 							.reduce(
-								(sum: number, item: { product: { isWeighed: boolean }; quantity: number }) => {
+								(sum: number, item: { product: { isWeighted: boolean }; quantity: number }) => {
 									// Only count weighed items for the weight
-									if (item.product.isWeighed) {
+									if (isTrue(item.product.isWeighted)) {
 										return sum + item.quantity;
 									}
 									return sum;
@@ -129,19 +129,19 @@
 					</span>
 				</div>
 				<div class="text-md mb-1 flex justify-between font-thin">
-					<span>Subtotal:</span>
+					<span>{m.pos_subtotal()}:</span>
 					<span>{numberWithCurrency(subtotal)}</span>
 				</div>
 				<div class="text-md mb-1 flex justify-between font-thin">
-					<span>Tax:</span>
+					<span>{m.pos_tax()}:</span>
 					<span>{numberWithCurrency(tax)}</span>
 				</div>
 				<div class="text-md mb-1 flex justify-between font-thin">
-					<span>Discount:</span>
+					<span>{m.pos_discount()}:</span>
 					<span>{numberWithCurrency(discount)}</span>
 				</div>
 				<div class="flex justify-between text-xl font-bold">
-					<span>Total:</span>
+					<span>{m.pos_total()}:</span>
 					<span>{numberWithCurrency(total)}</span>
 				</div>
 			</div>

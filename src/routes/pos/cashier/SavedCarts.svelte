@@ -6,6 +6,7 @@
 	import { cartStore } from '../CartStore.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import { formatDateTime } from '$lib/tools/time';
+	import { isTrue } from '$lib/tools/numbering';
 </script>
 
 <div
@@ -40,9 +41,9 @@
 										{savedCart.items.reduce(
 											(
 												sum: number,
-												item: { product: { isWeighed: boolean }; quantity: number }
+												item: { product: { isWeighted: boolean }; quantity: number }
 											) => {
-												if (!item.product.isWeighed) {
+												if (!isTrue(item.product.isWeighted)) {
 													return sum + item.quantity;
 												}
 												return sum;
@@ -54,9 +55,9 @@
 											.reduce(
 												(
 													sum: number,
-													item: { product: { isWeighed: boolean }; quantity: number }
+													item: { product: { isWeighted: boolean }; quantity: number }
 												) => {
-													if (item.product.isWeighed) {
+													if (isTrue(item.product.isWeighted)) {
 														return sum + item.quantity;
 													}
 													return sum;

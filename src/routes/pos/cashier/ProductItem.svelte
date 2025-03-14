@@ -2,6 +2,8 @@
 	import { Card, CardContent } from '$lib/components/ui/card';
 	import { Badge } from '$lib/components/ui/badge';
 	import { cartStore } from '../CartStore.svelte';
+	import { project } from '$lib/index';
+  
 	let { product } = $props();
 	let isFlashing = $state(false);
 	const handleFlash = () => {
@@ -24,7 +26,7 @@
 	<CardContent class="p-4">
 		<div class="aspect-[2/1] overflow-hidden rounded-md flex items-center mb-2">
 			<img
-				src={product.image}
+				src={product.image || project.default_image}
 				alt={product.name}
 				class="w-full h-auto object-cover"
 			/>

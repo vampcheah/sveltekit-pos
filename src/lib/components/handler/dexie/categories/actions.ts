@@ -5,7 +5,32 @@ import { defaultCategory, type Category } from './types';
 export const actions = {
 	// get all categories
 	getAll: async () => {
-		return await db.categories.toArray();
+		const categories = await db.categories.toArray();
+		const columns = Object.entries(db.categories.schema.indexes).map(([key, value]) => ({
+			accessorKey: key,
+			header: value.name
+		}));
+
+		const newCategories: Category[] = [];
+
+		categories.forEach((category) => {
+			const categoryData = {
+				...Object.entries(category).reduce(
+					(data, [key, value]) => {
+						const header = columns.find((column) => column.accessorKey === key)?.header;
+						if (header) {
+							data[header] = value;
+						}
+						return data;
+					},
+					{} as Record<string, string>
+				),
+				id: category.id
+			};
+			newCategories.push(categoryData as Category);
+		});
+
+		return newCategories;
 	},
 
 	// get category by id
@@ -17,9 +42,7 @@ export const actions = {
 	add: async (category: Category) => {
 		const newCategory = {
 			...defaultCategory,
-			...category,
-			createdAt: new Date(),
-			updatedAt: new Date()
+			...category
 		};
 		return await db.categories.add(newCategory);
 	},
@@ -27,8 +50,7 @@ export const actions = {
 	// update category
 	update: async (id: number, changes: Partial<Category>) => {
 		const updatedCategory = {
-			...changes,
-			updatedAt: new Date()
+			...changes
 		};
 		return await db.categories.update(id, updatedCategory);
 	},
@@ -48,8 +70,8 @@ export const actions = {
 		return await db.categories
 			.filter(
 				(category) =>
-					category.name.toLowerCase().includes(query.toLowerCase()) ||
-					category.description.toLowerCase().includes(query.toLowerCase())
+					category.code.toLowerCase().includes(query.toLowerCase()) ||
+					category.name.toLowerCase().includes(query.toLowerCase())
 			)
 			.toArray();
 	}
