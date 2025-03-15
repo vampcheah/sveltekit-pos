@@ -77,7 +77,6 @@
 
 	const startAutoCloseTimer = () => {
 		clearAutoCloseTimer();
-		remainingSeconds = defaultAutoCloseSeconds;
 
 		autoCloseTimer = setInterval(() => {
 			remainingSeconds -= 1;
