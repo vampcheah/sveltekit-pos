@@ -2,9 +2,14 @@
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
 	import * as Avatar from '$lib/components/ui/avatar/index.js';
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
-	import { User, Moon, Sun, Globe } from 'lucide-svelte';
+	import { User, Moon, Sun } from 'lucide-svelte';
 	import { cn } from '$lib/utils.js';
 	import { toggleMode } from 'mode-watcher';
+	import { goto } from '$app/navigation';
+
+	const logout = () => {
+		goto('/');
+	};
 </script>
 
 <DropdownMenu.Root>
@@ -44,7 +49,9 @@
 				</DropdownMenu.Item>
 			</DropdownMenu.Group>
 			<DropdownMenu.Separator />
-			<DropdownMenu.Item class="flex cursor-pointer items-center">Log out</DropdownMenu.Item>
+			<DropdownMenu.Item class="flex cursor-pointer items-center" onclick={logout}
+				>Log out</DropdownMenu.Item
+			>
 		</DropdownMenu.Group>
 	</DropdownMenu.Content>
 </DropdownMenu.Root>
