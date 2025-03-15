@@ -50,5 +50,6 @@
 	"pos_edit_weight_placeholder": "0.00",
 	"pos_button_confirm_weight": "确认",
 	"pos_tax": "税",
-	"pos_discount": "折扣"
+	"pos_discount": "折扣",
+	"pos_no_products_found": "找不到任何产品"
 }

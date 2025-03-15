@@ -15,6 +15,11 @@ export const actions = {
 		return await db.products.get(id);
 	},
 
+	// get total count of categories
+	getCount: async () => {
+		return await db.products.count();
+	},
+
 	// get products by category id
 	getByCategoryId: async (categoryId: number) => {
 		return await db.products.where('categoryId').equals(categoryId).toArray();

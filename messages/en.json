@@ -50,5 +50,6 @@
 	"pos_edit_weight_placeholder": "0.00",
 	"pos_button_confirm_weight": "Confirm",
 	"pos_tax": "Tax",
-	"pos_discount": "Discount"
+	"pos_discount": "Discount",
+	"pos_no_products_found": "No products found"
 }

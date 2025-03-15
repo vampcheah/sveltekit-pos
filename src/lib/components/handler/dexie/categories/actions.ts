@@ -15,6 +15,11 @@ export const actions = {
 		return await db.categories.get(id);
 	},
 
+	// get total count of categories
+	getCount: async () => {
+		return await db.categories.count();
+	},
+
 	// add category
 	add: async (category: Category) => {
 		const newCategory = {
