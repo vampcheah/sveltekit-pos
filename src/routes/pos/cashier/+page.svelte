@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Search, ShoppingCart, User } from 'lucide-svelte';
+	import { Search, ShoppingCart } from 'lucide-svelte';
 	import { goto } from '$app/navigation';
 	// Import project data
 	import { project } from '$lib/index';
@@ -14,6 +14,7 @@
 	import ShoppingCartSideBar from './ShoppingCartSideBar.svelte';
 	import SavedCarts from './SavedCarts.svelte';
 	import WeightInputDialog from './WeightInputDialog.svelte';
+	import UserNav from './UserNav.svelte';
 	// Import cart store
 	import { cartStore } from '../CartStore.svelte';
 	// Import i18n
@@ -60,9 +61,7 @@
 					{m.pos_saved_count({ count: cartStore.savedCarts.length | 0 })}
 				</Button>
 
-				<Button variant="outline" size="icon" onclick={cartStore.navigateToHome}>
-					<User class="h-5 w-5" />
-				</Button>
+				<UserNav />
 			</div>
 		</header>
 
