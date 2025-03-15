@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Search, ShoppingCart, User } from 'lucide-svelte';
+	import { goto } from '$app/navigation';
 	// Import project data
 	import { project } from '$lib/index';
 	// Import Shadcn UI components
@@ -34,8 +35,10 @@
 	<div class="flex flex-1 flex-col overflow-hidden">
 		<!-- Top navigation bar -->
 		<header class="flex items-center justify-between border-b px-2 py-2 sm:py-3.5">
-			<h1 class="hidden text-2xl font-bold sm:flex">{project.name}</h1>
-			<h1 class="flex text-2xl font-bold sm:hidden">{project.name_short}</h1>
+			<button onclick={() => goto('/')}>
+				<h1 class="hidden text-2xl font-bold sm:flex">{project.name}</h1>
+				<h1 class="flex text-2xl font-bold sm:hidden">{project.name_short}</h1>
+			</button>
 			<div class="flex items-center gap-2">
 				<div class="relative w-fit">
 					<Search class="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
