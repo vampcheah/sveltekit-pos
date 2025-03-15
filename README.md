@@ -89,16 +89,6 @@ Products can be added through the admin interface or by modifying the product da
 
 The application uses Tailwind CSS for styling. Customize the look and feel by modifying the `tailwind.config.js` file.
 
-## ToDo List
-
-### Cryptocurrency Payment Module
-
-Add support for cryptocurrency payments, giving users more flexibility by allowing them to make transactions using various digital currencies.
-
-### Basic User Dashboard
-
-A simple yet functional user dashboard will be added, providing users with essential account management features, including order history, profile settings, and more.
-
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
@@ -118,6 +108,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - current-dev
   - IndexedDB to product and category
   - LICENSE-MIT
+  - Message for empty product and category
+  - Refractor dexie usage
 - 0.0.7
   - Implementing currency to display price
   - Tax supported
