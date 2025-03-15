@@ -97,7 +97,7 @@
 
 	// Clean up timer when component is destroyed
 	onDestroy(() => {
-		clearAutoCloseTimer();
+		resetDialog();
 	});
 </script>
 
