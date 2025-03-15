@@ -8,6 +8,11 @@
 	import { cartStore } from '../CartStore.svelte';
 	import * as m from '$lib/paraglide/messages.js';
 	import { numberWithCurrency } from '$lib/tools/numbering';
+	import { onDestroy } from 'svelte';
+
+	// Default auto-close seconds
+	const defaultAutoCloseSeconds = 3;
+
 	// States
 	let isOpen = $state(false);
 	let selectedPaymentMethod = $state('cash');
@@ -15,6 +20,8 @@
 	let isCompleted = $state(false);
 	let paidAmount = $state(0);
 	let enableCheckout = $derived(cartStore.cart.length > 0);
+	let autoCloseTimer = $state<number | null>(null);
+	let remainingSeconds = $state(defaultAutoCloseSeconds);
 
 	// Payment methods with enhanced metadata
 	const resetDialog = () => {
@@ -22,6 +29,15 @@
 		isProcessing = false;
 		isCompleted = false;
 		toast.dismiss();
+		clearAutoCloseTimer();
+	};
+
+	const clearAutoCloseTimer = () => {
+		if (autoCloseTimer !== null) {
+			clearInterval(autoCloseTimer);
+			autoCloseTimer = null;
+		}
+		remainingSeconds = defaultAutoCloseSeconds;
 	};
 
 	const paymentMethods = [
@@ -54,6 +70,22 @@
 		cartStore.checkout();
 		isProcessing = false;
 		isCompleted = true;
+
+		// Start auto-close timer when payment is completed
+		startAutoCloseTimer();
+	};
+
+	const startAutoCloseTimer = () => {
+		clearAutoCloseTimer();
+		remainingSeconds = defaultAutoCloseSeconds;
+
+		autoCloseTimer = setInterval(() => {
+			remainingSeconds -= 1;
+			if (remainingSeconds <= 0) {
+				clearAutoCloseTimer();
+				paymentComplete();
+			}
+		}, 1000) as unknown as number;
 	};
 
 	const printReceipt = () => {
@@ -63,6 +95,11 @@
 	const paymentComplete = () => {
 		resetDialog();
 	};
+
+	// Clean up timer when component is destroyed
+	onDestroy(() => {
+		clearAutoCloseTimer();
+	});
 </script>
 
 <Dialog.Root bind:open={isOpen}>
@@ -165,7 +202,7 @@
 						class="flex-1 bg-blue-600 text-white transition-colors hover:bg-blue-700"
 						onclick={paymentComplete}
 					>
-						{m.pos_button_complete_purchase()}
+						{m.pos_button_complete_purchase()} ({remainingSeconds}s)
 					</Button>
 				</div>
 			</div>
