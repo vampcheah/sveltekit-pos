@@ -105,11 +105,13 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Version
 
-- current-dev
+- 0.0.8
   - IndexedDB to product and category
   - LICENSE-MIT
   - Message for empty product and category
   - Refractor dexie usage
+  - UserNav with Light/Dark Mode support
+  - User Logout
 - 0.0.7
   - Implementing currency to display price
   - Tax supported
