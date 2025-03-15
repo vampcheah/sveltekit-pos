@@ -83,10 +83,14 @@
 					class="w-full bg-green-800 text-white hover:bg-green-900 sm:w-auto"
 				>
 					<Upload class="mr-2 h-4 w-4" />
-					{isImporting ? 'Importing...' : 'Start Import'}
+					{isImporting ? 'Importing...' : 'Import Sample Data'}
 				</Button>
 
-				<Button onclick={flushDatabase} variant="outline" class="w-full sm:w-auto">
+				<Button
+					onclick={flushDatabase}
+					variant="outline"
+					class="w-full bg-red-800 text-white hover:bg-red-900 sm:w-auto"
+				>
 					<Trash class="mr-2 h-4 w-4" />
 					Clear Database
 				</Button>
