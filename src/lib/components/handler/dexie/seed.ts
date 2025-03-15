@@ -29,4 +29,9 @@ export const importSampleData = async () => {
 	}
 };
 
+export const clearDatabase = async () => {
+	await db.categories.clear();
+	await db.products.clear();
+};
+
 export default importSampleData;

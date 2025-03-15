@@ -2,10 +2,10 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Alert from '$lib/components/ui/alert/index.js';
 	import * as Card from '$lib/components/ui/card/index.js';
-	import { AlertCircle, Upload, Home } from 'lucide-svelte';
+	import { AlertCircle, Upload, Home, Trash } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
-	import { importSampleData } from '$lib/components/handler/dexie/seed';
+	import { importSampleData, clearDatabase } from '$lib/components/handler/dexie/seed';
 
 	let isImporting = $state(false);
 	let progress = $state(0);
@@ -36,6 +36,10 @@
 		}
 	};
 
+	const flushDatabase = async () => {
+		await clearDatabase();
+	};
+
 	const goToHome = () => {
 		goto('/');
 	};
@@ -44,7 +48,7 @@
 <div class="container mx-auto px-4 py-8">
 	<h1 class="mb-6 text-3xl font-bold">Data Importer</h1>
 
-	<Alert.Root variant="destructive" class="mb-8">
+	<Alert.Root variant="destructive" class="mb-8 bg-red-200">
 		<AlertCircle class="mr-2 h-4 w-4" />
 		<Alert.Title>Warning</Alert.Title>
 		<Alert.Description>
@@ -80,6 +84,11 @@
 				>
 					<Upload class="mr-2 h-4 w-4" />
 					{isImporting ? 'Importing...' : 'Start Import'}
+				</Button>
+
+				<Button onclick={flushDatabase} variant="outline" class="w-full sm:w-auto">
+					<Trash class="mr-2 h-4 w-4" />
+					Clear Database
 				</Button>
 
 				<Button onclick={goToHome} variant="outline" class="w-full sm:w-auto">
