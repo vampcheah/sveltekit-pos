@@ -26,7 +26,7 @@
 	"pos_button_processing": "Processing...",
 	"pos_button_confirm_payment": "Confirm Payment",
 	"pos_payment_successful": "Payment Successful!",
-	"pos_payment_successful_description": "Payment of <span class='font-semibold text-white'>{amount}</span> has been processed successfully.",
+	"pos_payment_successful_description": "Payment of <span class='font-semibold text-black dark:text-white'>{amount}</span> has been processed successfully.",
 	"pos_button_print_receipt": "Print Receipt",
 	"pos_button_complete_purchase": "Complete",
 	"pos_delete_from_cart_title": "Are you sure absolutely sure?",

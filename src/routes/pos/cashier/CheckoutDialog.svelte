@@ -120,9 +120,13 @@
 
 		{#if !isCompleted}
 			<div class="py-6">
-				<div class="mb-8 rounded-lg bg-blue-50/10 p-4">
-					<div class="mb-1 text-sm text-muted-foreground">{m.pos_total_amount()}</div>
-					<div class="text-3xl font-bold text-green-500">{numberWithCurrency(cartStore.total)}</div>
+				<div class="mb-8 rounded-lg bg-blue-500 p-4 dark:bg-blue-50/10">
+					<div class="mb-1 text-sm text-white dark:text-muted-foreground">
+						{m.pos_total_amount()}
+					</div>
+					<div class="text-3xl font-bold text-white dark:text-green-500">
+						{numberWithCurrency(cartStore.total)}
+					</div>
 				</div>
 
 				<div class="space-y-4">
