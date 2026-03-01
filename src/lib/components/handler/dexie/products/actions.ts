@@ -1,31 +1,13 @@
 import { db } from '../db';
+import { createCrudActions } from '../crud';
 import { defaultProduct, type Product } from './types';
 
-// actions for products table
+const baseCrud = createCrudActions(db.products, defaultProduct);
+
 export const actions = {
-	// get all products
-	getAll: async () => {
-		const products = await db.products.toArray();
+	...baseCrud,
 
-		return products;
-	},
-
-	// get product by id
-	getById: async (id: number) => {
-		return await db.products.get(id);
-	},
-
-	// get total count of categories
-	getCount: async () => {
-		return await db.products.count();
-	},
-
-	// get products by category id
-	getByCategoryId: async (categoryId: number) => {
-		return await db.products.where('categoryId').equals(categoryId).toArray();
-	},
-
-	// add product
+	// override add to include timestamps
 	add: async (product: Product) => {
 		const newProduct = {
 			...defaultProduct,
@@ -36,28 +18,27 @@ export const actions = {
 		return await db.products.add(newProduct);
 	},
 
-	// update product
+	// override update to auto-set updatedAt
 	update: async (id: number, changes: Partial<Product>) => {
-		const updatedProduct = {
+		return await db.products.update(id, {
 			...changes,
 			updatedAt: new Date()
-		};
-		return await db.products.update(id, updatedProduct);
+		});
 	},
 
-	// delete product
-	delete: async (id: number) => {
-		return await db.products.delete(id);
+	// product-specific: get by category
+	getByCategoryId: async (categoryId: number) => {
+		return await db.products.where('categoryId').equals(categoryId).toArray();
 	},
 
-	// search product
+	// search by name
 	search: async (query: string) => {
 		return await db.products
 			.filter((product) => product.name.toLowerCase().includes(query.toLowerCase()))
 			.toArray();
 	},
 
-	// get products with category information
+	// get products with joined category info
 	getAllWithCategories: async () => {
 		const products = await db.products.toArray();
 		const categories = await db.categories.toArray();

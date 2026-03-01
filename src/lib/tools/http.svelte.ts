@@ -6,7 +6,7 @@ export const apiSend = async (
 	withToken: boolean,
 	method: string,
 	resource: string,
-	data?: unknown,
+	data?: Record<string, unknown>,
 	host?: string
 ) => {
 	method = method.toUpperCase();
@@ -20,7 +20,6 @@ export const apiSend = async (
 
 	const url = new URL(`${host || project.appUrl}${resource}`);
 	if (method === 'GET' && data) {
-		// Properly serialize complex objects for GET requests
 		Object.entries(data).forEach(([key, value]) => {
 			const serializedValue = typeof value === 'object' ? JSON.stringify(value) : String(value);
 			url.searchParams.append(key, serializedValue);

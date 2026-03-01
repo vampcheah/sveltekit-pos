@@ -11,7 +11,7 @@
 
 	let { item } = $props();
 
-	const subtotal = $derived(item.product.price * item.quantity);
+	const subtotal = $derived(Number(item.product.price) * item.quantity);
 </script>
 
 <div class="py-1">

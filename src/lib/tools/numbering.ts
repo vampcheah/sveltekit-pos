@@ -1,16 +1,14 @@
 import { project } from '$lib/index';
 
-export const formatNumber = (number: number) => {
-	return number
-		? number.toLocaleString('en-US', {
-				minimumFractionDigits: 2,
-				maximumFractionDigits: 2
-			})
-		: 0;
+export const formatNumber = (number: number): string => {
+	return (number ?? 0).toLocaleString('en-US', {
+		minimumFractionDigits: 2,
+		maximumFractionDigits: 2
+	});
 };
 
 export const numberWithCurrency = (number: number) => {
-	return number.toLocaleString('en-US', {
+	return (number ?? 0).toLocaleString('en-US', {
 		style: 'currency',
 		currency: project.currency
 	});

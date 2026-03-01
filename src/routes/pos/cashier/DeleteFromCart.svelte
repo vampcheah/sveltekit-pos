@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onDestroy } from 'svelte';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { cartStore } from '../CartStore.svelte';
@@ -7,15 +6,10 @@
 
 	let { item } = $props();
 	let isOpen = $state(false);
-	let confirm_text = $state('');
 
 	const delete_now = async () => {
 		cartStore.deleteFromCart(item.product.id);
 	};
-
-	onDestroy(() => {
-		confirm_text = '';
-	});
 </script>
 
 <Dialog.Root bind:open={isOpen}>

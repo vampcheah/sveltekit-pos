@@ -29,12 +29,11 @@
 	// State variables
 	let tables = $state<string[]>([]);
 	let selectedTable = $state<string>('');
-	let tableData = $state<any[]>([]);
-	let columns = $state<any[]>([]);
+	let tableData = $state<Record<string, unknown>[]>([]);
+	let columns = $state<{ accessorKey: string; header: string }[]>([]);
 	let isAddDialogOpen = $state(false);
 	let isEditDialogOpen = $state(false);
-	let currentRecord = $state<any>({});
-	let newTableColumns = $state<{ name: string; type: string }[]>([{ name: '', type: 'string' }]);
+	let currentRecord = $state<Record<string, unknown>>({});
 	let loading = $state(true);
 
 	// Load tables on mount
@@ -85,7 +84,7 @@
 		isAddDialogOpen = true;
 	};
 
-	const openEditDialog = (record: any) => {
+	const openEditDialog = (record: Record<string, unknown>) => {
 		currentRecord = { ...record };
 		isEditDialogOpen = true;
 	};
@@ -130,7 +129,7 @@
 		}
 	};
 
-	const deleteRecord = async (id: any) => {
+	const deleteRecord = async (id: number) => {
 		try {
 			loading = true;
 			await db.table(selectedTable).delete(id);
@@ -141,14 +140,6 @@
 			toast.error('Failed to delete record');
 			loading = false;
 		}
-	};
-
-	const addColumnField = () => {
-		newTableColumns = [...newTableColumns, { name: '', type: 'string' }];
-	};
-
-	const removeColumnField = (index: number) => {
-		newTableColumns = newTableColumns.filter((_, i) => i !== index);
 	};
 
 	const navigateToHome = () => {
@@ -285,7 +276,7 @@
 										<Button variant="ghost" size="icon" onclick={() => openEditDialog(row)}>
 											<Edit class="h-4 w-4" />
 										</Button>
-										<Button variant="ghost" size="icon" onclick={() => deleteRecord(row.id)}>
+										<Button variant="ghost" size="icon" onclick={() => deleteRecord(row.id as number)}>
 											<Trash2 class="h-4 w-4" />
 										</Button>
 									</div>

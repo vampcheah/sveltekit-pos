@@ -39,29 +39,15 @@
 									</p>
 									<p class="text-xs text-muted-foreground">
 										{savedCart.items.reduce(
-											(
-												sum: number,
-												item: { product: { isWeighted: boolean }; quantity: number }
-											) => {
-												if (!isTrue(item.product.isWeighted)) {
-													return sum + item.quantity;
-												}
-												return sum;
-											},
+											(sum, item) =>
+												!isTrue(item.product.isWeighted) ? sum + item.quantity : sum,
 											0
 										)}
 										{m.pos_items()},
 										{savedCart.items
 											.reduce(
-												(
-													sum: number,
-													item: { product: { isWeighted: boolean }; quantity: number }
-												) => {
-													if (isTrue(item.product.isWeighted)) {
-														return sum + item.quantity;
-													}
-													return sum;
-												},
+												(sum, item) =>
+													isTrue(item.product.isWeighted) ? sum + item.quantity : sum,
 												0
 											)
 											.toFixed(2)}

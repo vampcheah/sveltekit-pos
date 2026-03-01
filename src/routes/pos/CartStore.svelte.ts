@@ -1,5 +1,4 @@
-import { goto } from '$app/navigation';
-import type { WeightedProduct, Product, SavedCart } from './types';
+import type { WeightedProduct, Product, CartItem, SavedCart } from './types';
 import { toast } from 'svelte-sonner';
 import * as m from '$lib/paraglide/messages.js';
 import { localStore, type LocalStorageType } from '$lib/localStore.svelte';
@@ -9,9 +8,8 @@ import { isTrue } from '$lib/tools/numbering';
 
 export class CartStore {
 	// Cart state variables
-	localCart: LocalStorageType<{ product: WeightedProduct | Product; quantity: number }[]> =
-		localStore('pos.cart', [] as { product: WeightedProduct | Product; quantity: number }[]);
-	cart: { product: WeightedProduct | Product; quantity: number }[] = $state(this.localCart.current);
+	localCart: LocalStorageType<CartItem[]> = localStore('pos.cart', [] as CartItem[]);
+	cart: CartItem[] = $state(this.localCart.current);
 	localSavedCarts: LocalStorageType<SavedCart[]> = localStore('pos.savedCarts', [] as SavedCart[]);
 	savedCarts: SavedCart[] = $state(this.localSavedCarts.current);
 
@@ -41,7 +39,7 @@ export class CartStore {
 
 	// Computed values
 	get total() {
-		return this.cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+		return this.cart.reduce((sum, item) => sum + Number(item.product.price) * item.quantity, 0);
 	}
 
 	get grandTotal() {
@@ -226,11 +224,6 @@ export class CartStore {
 	cancelWeightInput = () => {
 		this.editingWeightItem = null;
 		this.weightInputValue = '';
-	};
-
-	// Navigation
-	navigateToHome = () => {
-		goto('/');
 	};
 }
 

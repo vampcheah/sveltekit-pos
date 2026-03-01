@@ -27,7 +27,7 @@
 
 	// Filter products
 	const filteredProducts = $derived(
-		products.filter((product: any) => {
+		products.filter((product) => {
 			const matchesSearch = product.name
 				.toLowerCase()
 				.includes(cartStore.searchQuery.toLowerCase());
@@ -38,23 +38,23 @@
 	);
 
 	onMount(async () => {
-		// set loading to true
 		isLoading = true;
 
-		// get all categories
-		if ((await categoriesActions.getCount()) > 0) {
-			categories = await categoriesActions.getAll();
+		try {
+			if ((await categoriesActions.getCount()) > 0) {
+				categories = await categoriesActions.getAll();
+			}
+
+			categories = [defaultCategory, ...categories];
+			activeCategory = defaultCategory.code;
+
+			if ((await productsActions.getCount()) > 0) {
+				products = await productsActions.getAll();
+			}
+		} catch (error) {
+			console.error('Failed to load catalog data:', error);
 		}
 
-		categories = [defaultCategory, ...categories];
-		activeCategory = defaultCategory.code;
-
-		// get all products
-		if ((await productsActions.getCount()) > 0) {
-			products = await productsActions.getAll();
-		}
-
-		// set loading to false
 		isLoading = false;
 	});
 </script>

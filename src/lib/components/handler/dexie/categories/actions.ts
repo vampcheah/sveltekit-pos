@@ -1,45 +1,14 @@
 import { db } from '../db';
+import { createCrudActions } from '../crud';
 import { defaultCategory, type Category } from './types';
 
-// actions for categories table
+const baseCrud = createCrudActions(db.categories, defaultCategory);
+
 export const actions = {
-	// get all categories
-	getAll: async () => {
-		const categories = await db.categories.toArray();
+	...baseCrud,
 
-		return categories;
-	},
-
-	// get category by id
-	getById: async (id: number) => {
-		return await db.categories.get(id);
-	},
-
-	// get total count of categories
-	getCount: async () => {
-		return await db.categories.count();
-	},
-
-	// add category
-	add: async (category: Category) => {
-		const newCategory = {
-			...defaultCategory,
-			...category
-		};
-		return await db.categories.add(newCategory);
-	},
-
-	// update category
-	update: async (id: number, changes: Partial<Category>) => {
-		const updatedCategory = {
-			...changes
-		};
-		return await db.categories.update(id, updatedCategory);
-	},
-
-	// delete category
+	// override delete with referential integrity check
 	delete: async (id: number) => {
-		// check if there are products using this category
 		const productsWithCategory = await db.products.where('categoryId').equals(id).count();
 		if (productsWithCategory > 0) {
 			throw new Error('Cannot delete category, products are using it');
@@ -47,7 +16,7 @@ export const actions = {
 		return await db.categories.delete(id);
 	},
 
-	// search category
+	// search by code or name
 	search: async (query: string) => {
 		return await db.categories
 			.filter(

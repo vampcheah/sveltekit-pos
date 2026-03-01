@@ -53,24 +53,15 @@
 				<span>{m.pos_items()}</span>
 				<span>
 					{cartStore.cart.reduce(
-						(sum: number, item: { product: { isWeighted: boolean }; quantity: number }) => {
-							// Only count non-weighed items for the item count
-							if (!isTrue(item.product.isWeighted)) {
-								return sum + item.quantity;
-							}
-							return sum;
-						},
+						(sum, item) => (!isTrue(item.product.isWeighted) ? sum + item.quantity : sum),
 						0
 					)}
 					{m.pos_items()},
 					{cartStore.cart
-						.reduce((sum: number, item: { product: { isWeighted: boolean }; quantity: number }) => {
-							// Only count weighed items for the weight
-							if (isTrue(item.product.isWeighted)) {
-								return sum + item.quantity;
-							}
-							return sum;
-						}, 0)
+						.reduce(
+							(sum, item) => (isTrue(item.product.isWeighted) ? sum + item.quantity : sum),
+							0
+						)
 						.toFixed(2)}
 					{m.pos_kg()}
 				</span>
