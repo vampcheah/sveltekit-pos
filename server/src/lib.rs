@@ -1,0 +1,19 @@
+//! pos-server 库：各域模块对 bin（server / seed / migrate）与测试复用（§1.2）。
+pub mod admins;
+pub mod auth;
+pub mod cashiers;
+pub mod catalog;
+pub mod config;
+pub mod error;
+pub mod inventory;
+pub mod members;
+pub mod orders;
+pub mod promotions;
+pub mod rbac;
+pub mod reports;
+pub mod routes;
+pub mod settings;
+pub mod shared;
+pub mod shifts;
+pub mod state;
+pub mod stores;

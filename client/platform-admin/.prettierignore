@@ -1,0 +1,16 @@
+# Ignore build outputs
+.svelte-kit/
+build/
+dist/
+node_modules/
+
+# Ignore lock + generated files
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+.env
+.env.*
+*.log
+
+# Claude Code tooling dir (skills/config) — docs, not app source
+.claude/

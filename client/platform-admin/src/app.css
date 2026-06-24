@@ -1,0 +1,225 @@
+@import 'tailwindcss';
+
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  Orientation variants used by orientation-aware primitives (slider, toggle
+  group). Without these, classes like `data-horizontal:h-1` never match the
+  element's `data-orientation="horizontal"` attribute and the slider track
+  collapses to zero height (invisible).
+*/
+@custom-variant data-horizontal (&[data-orientation="horizontal"]);
+@custom-variant data-vertical (&[data-orientation="vertical"]);
+
+/*
+  Theme: "Refined neutral + indigo" (Linear / Vercel inspired).
+  Cool near-neutral surfaces carry a faint indigo tint (hue 269); the brand
+  accent is a confident indigo used consistently across light and dark. Charts
+  share a single brand-anchored palette so the same metric reads the same color
+  everywhere. Depth comes from soft, layered shadows rather than heavy borders.
+*/
+:root {
+	--radius: 0.625rem;
+
+	/* Surfaces — a soft cool-gray canvas so white cards/inputs lift off the page */
+	--background: oklch(0.965 0.006 269);
+	--foreground: oklch(0.21 0.025 269);
+	--card: oklch(1 0 0);
+	--card-foreground: oklch(0.21 0.025 269);
+	--popover: oklch(1 0 0);
+	--popover-foreground: oklch(0.21 0.025 269);
+
+	/* Brand */
+	--primary: oklch(0.545 0.205 269);
+	--primary-foreground: oklch(0.985 0.002 269);
+
+	--secondary: oklch(0.965 0.006 269);
+	--secondary-foreground: oklch(0.25 0.03 269);
+	--muted: oklch(0.967 0.005 269);
+	--muted-foreground: oklch(0.552 0.026 269);
+	--accent: oklch(0.95 0.015 269);
+	--accent-foreground: oklch(0.42 0.16 269);
+
+	--destructive: oklch(0.585 0.22 25);
+
+	--border: oklch(0.925 0.006 269);
+	/* Form-control border — a touch darker than --border so inputs read as
+	   distinct fields on white cards (was pure white = invisible). */
+	--input: oklch(0.905 0.008 269);
+	--ring: oklch(0.545 0.205 269 / 50%);
+
+	/* Brand-anchored chart palette (indigo → azure → cyan → violet → pink) */
+	--chart-1: oklch(0.545 0.205 269);
+	--chart-2: oklch(0.62 0.16 232);
+	--chart-3: oklch(0.7 0.13 195);
+	--chart-4: oklch(0.6 0.2 305);
+	--chart-5: oklch(0.64 0.21 350);
+
+	/* Sidebar — a faintly cool panel, distinct from white content cards */
+	--sidebar: oklch(0.985 0.004 269);
+	--sidebar-foreground: oklch(0.32 0.02 269);
+	--sidebar-primary: oklch(0.545 0.205 269);
+	--sidebar-primary-foreground: oklch(0.985 0.002 269);
+	--sidebar-accent: oklch(0.94 0.018 269);
+	--sidebar-accent-foreground: oklch(0.42 0.16 269);
+	--sidebar-border: oklch(0.925 0.006 269);
+	--sidebar-ring: oklch(0.545 0.205 269 / 50%);
+}
+
+.dark {
+	/* Surfaces — deep neutral charcoal with a faint cool cast */
+	--background: oklch(0.17 0.008 269);
+	--foreground: oklch(0.96 0.004 269);
+	--card: oklch(0.205 0.01 269);
+	--card-foreground: oklch(0.96 0.004 269);
+	--popover: oklch(0.205 0.01 269);
+	--popover-foreground: oklch(0.96 0.004 269);
+
+	/* Brand — same indigo hue, brightened for contrast (no longer washed-out) */
+	--primary: oklch(0.62 0.19 269);
+	--primary-foreground: oklch(0.99 0.003 269);
+
+	--secondary: oklch(0.26 0.012 269);
+	--secondary-foreground: oklch(0.96 0.004 269);
+	--muted: oklch(0.26 0.012 269);
+	--muted-foreground: oklch(0.705 0.025 269);
+	--accent: oklch(0.28 0.02 269);
+	--accent-foreground: oklch(0.96 0.004 269);
+
+	--destructive: oklch(0.7 0.19 22);
+
+	--border: oklch(1 0 0 / 9%);
+	--input: oklch(1 0 0 / 12%);
+	--ring: oklch(0.62 0.19 269 / 55%);
+
+	--chart-1: oklch(0.66 0.18 269);
+	--chart-2: oklch(0.7 0.15 232);
+	--chart-3: oklch(0.76 0.12 195);
+	--chart-4: oklch(0.68 0.18 305);
+	--chart-5: oklch(0.7 0.19 350);
+
+	--sidebar: oklch(0.185 0.009 269);
+	--sidebar-foreground: oklch(0.86 0.01 269);
+	--sidebar-primary: oklch(0.62 0.19 269);
+	--sidebar-primary-foreground: oklch(0.99 0.003 269);
+	--sidebar-accent: oklch(0.28 0.025 269);
+	--sidebar-accent-foreground: oklch(0.92 0.02 269);
+	--sidebar-border: oklch(1 0 0 / 7%);
+	--sidebar-ring: oklch(0.62 0.19 269 / 55%);
+}
+
+@theme inline {
+	--radius-sm: calc(var(--radius) - 4px);
+	--radius-md: calc(var(--radius) - 2px);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) + 4px);
+
+	/* Typography — Geist, self-hosted via @fontsource-variable (no external CDN).
+     Imported in src/routes/+layout.svelte; Inter / system as graceful fallback. */
+	--font-sans:
+		'Geist Variable', 'Geist', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+		Helvetica, Arial, sans-serif;
+	--font-mono:
+		'Geist Mono Variable', 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+	/* Soft, layered elevation (cool-tinted) — depth without heavy borders */
+	--shadow-2xs: 0 1px 2px 0 oklch(0.21 0.03 269 / 0.04);
+	--shadow-xs: 0 1px 2px 0 oklch(0.21 0.03 269 / 0.05);
+	--shadow-sm: 0 1px 2px -1px oklch(0.21 0.03 269 / 0.08), 0 1px 3px 0 oklch(0.21 0.03 269 / 0.05);
+	--shadow-md:
+		0 2px 4px -2px oklch(0.21 0.03 269 / 0.07), 0 4px 8px -2px oklch(0.21 0.03 269 / 0.06);
+	--shadow-lg:
+		0 4px 8px -3px oklch(0.21 0.03 269 / 0.08), 0 12px 20px -4px oklch(0.21 0.03 269 / 0.07);
+	--shadow-xl:
+		0 8px 16px -4px oklch(0.21 0.03 269 / 0.09), 0 20px 32px -8px oklch(0.21 0.03 269 / 0.09);
+
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-card: var(--card);
+	--color-card-foreground: var(--card-foreground);
+	--color-popover: var(--popover);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-primary: var(--primary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-destructive: var(--destructive);
+	--color-border: var(--border);
+	--color-input: var(--input);
+	--color-ring: var(--ring);
+	--color-chart-1: var(--chart-1);
+	--color-chart-2: var(--chart-2);
+	--color-chart-3: var(--chart-3);
+	--color-chart-4: var(--chart-4);
+	--color-chart-5: var(--chart-5);
+	--color-sidebar: var(--sidebar);
+	--color-sidebar-foreground: var(--sidebar-foreground);
+	--color-sidebar-primary: var(--sidebar-primary);
+	--color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+	--color-sidebar-accent: var(--sidebar-accent);
+	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+	--color-sidebar-border: var(--sidebar-border);
+	--color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
+		/* Firefox: thin, subtle, token-driven scrollbars everywhere. */
+		scrollbar-width: thin;
+		scrollbar-color: color-mix(in srgb, var(--muted-foreground) 35%, transparent) transparent;
+	}
+	body {
+		@apply bg-background text-foreground font-sans antialiased;
+	}
+	/*
+    Always reserve the scrollbar's gutter so the layout stays put whether or not
+    a page overflows — no horizontal "jump" when navigating between a scrolling
+    page and a short one.
+  */
+	html {
+		scrollbar-gutter: stable;
+	}
+
+	/*
+    Refined, unobtrusive scrollbars everywhere — the page, dropdowns, popovers,
+    and any native scroll container. A slim rounded thumb (with transparent
+    padding) that darkens on hover; no arrows, no track.
+  */
+	::-webkit-scrollbar {
+		width: 10px;
+		height: 10px;
+	}
+	::-webkit-scrollbar-track {
+		background-color: transparent;
+	}
+	::-webkit-scrollbar-thumb {
+		background-color: color-mix(in srgb, var(--muted-foreground) 35%, transparent);
+		border: 2px solid transparent;
+		border-radius: 9999px;
+		background-clip: content-box;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background-color: color-mix(in srgb, var(--muted-foreground) 55%, transparent);
+	}
+	::-webkit-scrollbar-corner {
+		background-color: transparent;
+	}
+}
+
+/* Override browser autofill background — must be outside @layer to win specificity */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	-webkit-box-shadow: 0 0 0px 1000px var(--card) inset !important;
+	-webkit-text-fill-color: var(--foreground) !important;
+	caret-color: var(--foreground);
+	transition: background-color 5000s ease-in-out 0s !important;
+}

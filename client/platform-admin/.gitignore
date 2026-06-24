@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+/.svelte-kit
+/build
+/dist
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+
+# Vite temp files
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*

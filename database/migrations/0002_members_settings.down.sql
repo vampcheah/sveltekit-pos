@@ -1,0 +1,3 @@
+DROP TABLE IF EXISTS settings;
+DROP TABLE IF EXISTS member_ledger;
+DROP TABLE IF EXISTS members;
