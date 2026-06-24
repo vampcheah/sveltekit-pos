@@ -1,0 +1,46 @@
+{
+	"name": "svelte-pos",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "vite dev --host",
+		"build": "vite build",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"format": "prettier --write .",
+		"lint": "prettier --check . && eslint ."
+	},
+	"devDependencies": {
+		"@eslint/compat": "^1.2.5",
+		"@eslint/js": "^9.18.0",
+		"@sveltejs/adapter-static": "^3.0.10",
+		"@sveltejs/kit": "^2.53.4",
+		"@sveltejs/vite-plugin-svelte": "^5.0.0",
+		"bits-ui": "^2.16.2",
+		"clsx": "^2.1.1",
+		"eslint": "^9.18.0",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-svelte": "^3.15.0",
+		"globals": "^17.3.0",
+		"lucide-svelte": "^0.575.0",
+		"mode-watcher": "^1.1.0",
+		"prettier": "^3.8.1",
+		"prettier-plugin-svelte": "^3.5.0",
+		"prettier-plugin-tailwindcss": "^0.7.2",
+		"svelte": "^5.53.6",
+		"svelte-check": "^4.4.4",
+		"svelte-sonner": "^1.0.7",
+		"tailwind-merge": "^3.5.0",
+		"tailwind-variants": "^3.2.2",
+		"tailwindcss": "^4.2.1",
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.56.1",
+		"vite": "^6.0.0"
+	},
+	"dependencies": {
+		"@inlang/paraglide-sveltekit": "^0.16.1",
+		"@tailwindcss/postcss": "^4.2.1"
+	}
+}
